@@ -383,6 +383,7 @@ moduleContent: {
     document.getElementById('header-user-division').textContent = user.division;
     document.getElementById('header-user-avatar').src = `https://placehold.co/40x40/E0F2FE/00539F?text=${user.avatar}`;
 
+    
 
     // Update "Continue Learning"
     const nextModule = getNextModule();
@@ -911,9 +912,9 @@ function openModule(moduleId) {
         
         function openRolePlayGate(gateId) {
             currentGateId = gateId;
-            if (!state.user.rolePlayProgress[gateId]) {
-                state.user.rolePlayProgress[gateId] = [];
-            }
+            if (!state.currentUser.rolePlayProgress[gateId]) {
+              state.currentUser.rolePlayProgress[gateId] = [];
+}
             const { stage, module } = findModule(gateId);
             const modal = document.getElementById('role-play-gate-modal');
             modal.querySelector('#rpg-modal-title').textContent = module.title.split(':')[0].trim();
@@ -923,7 +924,7 @@ function openModule(moduleId) {
         }
 
         function renderRolePlayGate() {
-            const progress = state.user.rolePlayProgress[currentGateId];
+            const progress = state.currentUser.rolePlayProgress[currentGateId];
             const completedCount = progress.length;
             const modal = document.getElementById('role-play-gate-modal');
             const container = modal.querySelector('#rpg-sessions-container');
@@ -954,7 +955,7 @@ function openModule(moduleId) {
         }
 
         function startRpgSession() {
-            const progress = state.user.rolePlayProgress[currentGateId];
+            const progress = state.currentUser.rolePlayProgress[currentGateId];
             if (progress.length >= 3) return;
             const rolesPlayed = progress.map(s => s.role);
             const roles = ["Sales", "Customer"];
@@ -968,7 +969,7 @@ function openModule(moduleId) {
             if (progress.length >= 3) {
                 const { module } = findModule(currentGateId);
                 state.user.xp += module.xp;
-                state.user.completedModules.push(currentGateId);
+                state.currentUser.completionData.push({ moduleId: currentGateId, completedAt: new Date().toISOString() });
                 setTimeout(() => {
                     closeModal(ui.rolePlayGateModal);
                     updateUI();
