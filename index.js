@@ -300,31 +300,36 @@ moduleContent: {
             setTimeout(() => pageToShow.classList.remove('opacity-0'), 50);
         }
         
-       // GANTI TOTAL FUNGSI showLmsView ANDA DENGAN YANG DI BAWAH INI
+       // GANTI FUNGSI showLmsView LAMA ANDA DENGAN INI
     function showLmsView(viewToShow) {
-    // Bagian ini tetap sama: menyembunyikan semua view & menonaktifkan semua link
-    [ui.dashboardView, ui.learningPathView, ui.notesView, ui.peerLearningView, ui.moduleDetailView, ui.learningModuleView].forEach(view => view.classList.add('hidden'));
-    [ui.navDashboard, ui.navPath, ui.navNotes, ui.navPeer, ui.aiPracticeBtn].forEach(link => link.classList.remove('active'));
-    
-    // --- LOGIKA BARU YANG SUDAH DIPERBAIKI ---
-    // Cek apakah view yang mau ditampilkan adalah salah satu dari view "fokus"
-    // (detail modul atau kuis animasi)
-    if (viewToShow === ui.moduleDetailView || viewToShow === ui.learningModuleView) {
-        ui.mainSidebar.classList.add('hidden'); // Sembunyikan sidebar utama
-    } else {
-        ui.mainSidebar.classList.remove('hidden'); // Jika tidak, tampilkan lagi sidebar utama
-    }
-    // --- AKHIR LOGIKA BARU ---
+    // Sembunyikan SEMUA view yang mungkin ada
+    [
+        ui.dashboardView, ui.learningPathView, ui.notesView,
+        ui.peerLearningView, ui.moduleDetailView, ui.learningModuleView,
+        ui.managerDashboardView, ui.employeeDetailView // <-- Pastikan ini ada
+    ].forEach(view => {
+        if (view) view.classList.add('hidden');
+    });
 
-    // Tampilkan view yang dituju dan atur header
-    viewToShow.classList.remove('hidden');
-    ui.mainHeader.classList.toggle('hidden', viewToShow === ui.learningModuleView || viewToShow === ui.moduleDetailView);
+    // Nonaktifkan semua link sidebar
+    [ui.navDashboard, ui.navPath, ui.navNotes, ui.navPeer, ui.aiPracticeBtn].forEach(link => {
+        if (link) link.classList.remove('active');
+    });
     
-    // Atur judul header dan link aktif di sidebar (jika sidebar tampil)
-    if (viewToShow === ui.dashboardView) { ui.mainHeaderTitle.textContent = "Dashboard"; ui.navDashboard.classList.add('active'); } 
-    else if (viewToShow === ui.learningPathView) { ui.mainHeaderTitle.textContent = "Learning Path"; ui.navPath.classList.add('active'); }
-    else if (viewToShow === ui.notesView) { ui.mainHeaderTitle.textContent = "My Notes"; ui.navNotes.classList.add('active'); renderNotes(); }
-    else if (viewToShow === ui.peerLearningView) { ui.mainHeaderTitle.textContent = "Peer Learning"; ui.navPeer.classList.add('active'); renderPeerSessions(); }
+    // Logika untuk menyembunyikan/menampilkan elemen utama
+    const isFocusView = viewToShow === ui.moduleDetailView || viewToShow === ui.learningModuleView || viewToShow === ui.employeeDetailView;
+    if (ui.mainSidebar) ui.mainSidebar.classList.toggle('hidden', isFocusView);
+    if (ui.mainHeader) ui.mainHeader.classList.toggle('hidden', isFocusView || viewToShow === ui.managerDashboardView || viewToShow === ui.employeeDetailView);
+
+    // Tampilkan view yang dituju
+    if (viewToShow) viewToShow.classList.remove('hidden');
+    
+    // Atur judul header dan link aktif di sidebar
+    if (viewToShow === ui.dashboardView) { ui.mainHeaderTitle.textContent = "Dashboard"; if(ui.navDashboard) ui.navDashboard.classList.add('active'); } 
+    else if (viewToShow === ui.learningPathView) { ui.mainHeaderTitle.textContent = "Learning Path"; if(ui.navPath) ui.navPath.classList.add('active'); }
+    else if (viewToShow === ui.notesView) { ui.mainHeaderTitle.textContent = "My Notes"; if(ui.navNotes) ui.navNotes.classList.add('active'); renderNotes(); }
+    else if (viewToShow === ui.peerLearningView) { ui.mainHeaderTitle.textContent = "Peer Learning"; if(ui.navPeer) ui.navPeer.classList.add('active'); renderPeerSessions(); }
+    else if (viewToShow === ui.managerDashboardView) { ui.mainHeaderTitle.textContent = "Team Dashboard"; }
 }
 
     function isModuleUnlocked(moduleId) {
@@ -375,8 +380,8 @@ moduleContent: {
 
     // Update Header profile
     document.getElementById('header-user-name').textContent = user.name;
-document.getElementById('header-user-division').textContent = user.division;
-document.getElementById('header-user-avatar').src = `https://placehold.co/40x40/E0F2FE/00539F?text=${user.avatar}`;
+    document.getElementById('header-user-division').textContent = user.division;
+    document.getElementById('header-user-avatar').src = `https://placehold.co/40x40/E0F2FE/00539F?text=${user.avatar}`;
 
 
     // Update "Continue Learning"
@@ -555,7 +560,7 @@ function updateVideoProgress() {
 function renderNoteMarkers(moduleId, lessonIndex) {
     const container = document.getElementById('note-markers-container');
     container.innerHTML = '';
-    const notesForThisVideo = state.user.notes.filter(note => 
+    const notesForThisVideo = state.currentUser.notes.filter(note => 
         note.moduleId === moduleId && note.lessonIndex === lessonIndex
     );
     
@@ -630,7 +635,7 @@ function setupNoteTakingSection(item) {
     noteSection.className = 'mt-8 p-6 bg-white rounded-lg shadow';
     noteSection.innerHTML = `
         <button onclick="this.nextElementSibling.classList.toggle('hidden')" class="w-full flex justify-between items-center font-bold text-slate-700">
-            <span><i data-feather="edit-3" class="inline-block -mt-1 mr-2 w-5 h-5"></i>Add a private note</span>
+            <span><i data-feather="edit-3" class="inline-block -mt-1 mr-2 w-5 h-5"></i>Add a note</span>
             <i data-feather="chevron-down"></i>
         </button>
         <div class="hidden mt-4">
@@ -1034,24 +1039,7 @@ function openModule(moduleId) {
 
         // --- KUMPULAN FUNGSI BARU ---
 
-        function handleLogin(userId) {
-    const user = state.user.find(u => u.id === userId);
-    if (!user) {
-        console.error("User not found!");
-        return;
-    }
-    state.currentUser = user; // Set user yang sedang login
-
-    // Tampilkan aplikasi utama
-    showPage(ui.lmsApp);
-
-    // Render UI berdasarkan peran
-    if (user.type === 'employee') {
-        renderEmployeeView();
-    } else if (user.type === 'manager') {
-        renderManagerView();
-    }
-}
+        
 
         // GANTI FUNGSI renderEmployeeView LAMA ANDA DENGAN VERSI INI
 function renderEmployeeView() {
@@ -1097,17 +1085,16 @@ function renderEmployeeView() {
     showLmsView(ui.dashboardView); 
 }
 
+    // GANTI FUNGSI renderManagerView LAMA ANDA DENGAN INI
     function renderManagerView() {
-    // Render sidebar untuk manager
+    // (Bagian untuk merender sidebar manajer tetap sama)
     const sidebarNav = document.querySelector('#main-sidebar nav');
     const user = state.currentUser;
-
     document.querySelector('aside .font-bold.text-lg').textContent = user.name;
     document.querySelector('aside .text-sm.text-slate-500').textContent = user.division;
     document.querySelector('aside p#xp-text').textContent = "Manager Account";
     document.querySelector('#xp-bar').style.width = `100%`;
     document.querySelector('aside img').src = `https://placehold.co/100x100/334155/FFFFFF?text=${user.avatar}`;
-    
     sidebarNav.innerHTML = `
         <a href="#" id="nav-manager-dashboard" class="sidebar-link active flex items-center gap-3 px-4 py-3 rounded-lg">
             <i data-feather="trello"></i> Team Dashboard
@@ -1115,11 +1102,31 @@ function renderEmployeeView() {
     `;
     feather.replace();
 
-    // Tampilkan dashboard manajer
+    // Render konten dashboard manajer
     renderManagerDashboard();
-    ui.mainHeaderTitle.textContent = "Team Dashboard";
-    document.querySelectorAll('.lms-view').forEach(v => v.classList.add('hidden'));
-    ui.managerDashboardView.classList.remove('hidden');
+    
+    // --- PERUBAHAN UTAMA DI SINI ---
+    // Gunakan fungsi terpusat untuk menampilkan view yang benar
+    showLmsView(ui.managerDashboardView);
+}
+
+    function handleLogin(userId) {
+    const user = state.user.find(u => u.id === userId);
+    if (!user) {
+        console.error("User not found!");
+        return;
+    }
+    state.currentUser = user; // Set user yang sedang login
+
+    // Tampilkan aplikasi utama
+    showPage(ui.lmsApp);
+
+    // Render UI berdasarkan peran
+    if (user.type === 'employee') {
+        renderEmployeeView();
+    } else if (user.type === 'manager') {
+        renderManagerView();
+    }
 }
 
     const allModules = state.learningPath.flatMap(stage => stage.modules);
@@ -1251,25 +1258,29 @@ function calculateTimeSpentToday(employee) {
             openCaseLibrary();
         }
         
+        // GANTI FUNGSI renderNotes LAMA ANDA DENGAN INI
         function renderNotes() {
-            ui.notesContainer.innerHTML = state.user.notes.map(note => 
-                `<div class="bg-white p-4 rounded-lg shadow-sm border-l-4" style="border-color: var(--brand-blue);">
-                    <p class="text-xs text-slate-500 font-semibold mb-1">From: ${note.source}</p>
-                    <p class="text-slate-700">${note.text}</p>
-                </div>`
-            ).join('') || `<div class="text-center text-slate-500 p-8 bg-white rounded-lg">You haven't saved any notes yet.</div>`;
-        }
+    // Menggunakan state.currentUser yang benar
+    ui.notesContainer.innerHTML = state.currentUser.notes.map(note =>
+        `<div class="bg-white p-4 rounded-lg shadow-sm border-l-4" style="border-color: var(--brand-blue);">
+            <p class="text-xs text-slate-500 font-semibold mb-1">From: ${note.source}</p>
+            <p class="text-slate-700">${note.text}</p>
+        </div>`
+    ).join('') || `<div class="text-center text-slate-500 p-8 bg-white rounded-lg">You haven't saved any notes yet.</div>`;
+}
 
+// GANTI JUGA FUNGSI handleSaveNote LAMA ANDA DENGAN INI
         function handleSaveNote(e) {
-            e.preventDefault();
-            const noteText = ui.noteInput.value.trim();
-            if (noteText) {
-                const currentModuleTitle = getNextModule()?.title || "General Note";
-                state.user.notes.unshift({ source: currentModuleTitle, text: noteText });
-                ui.noteInput.value = '';
-                renderNotes();
-            }
-        }
+    e.preventDefault();
+    const noteText = ui.noteInput.value.trim();
+    if (noteText) {
+        const currentModuleTitle = getNextModule()?.title || "General Note";
+        // Menggunakan state.currentUser yang benar
+        state.currentUser.notes.unshift({ source: currentModuleTitle, text: noteText });
+        ui.noteInput.value = '';
+        renderNotes();
+    }
+}
         
         function renderPeerSessions() {
             ui.peerSessionsContainer.innerHTML = state.peerSessions.map(session => {

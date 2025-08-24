@@ -1,13 +1,22 @@
-/* Corporate & Fresh Palette */
-        :root {
-            --brand-blue: #00539F;
-            --fresh-aqua: #4DD7FA;
-            --healthy-green: #65B741;
-            --light-gray: #f1f5f9;
-            --dark-slate: #1e293b;
-            --correct-green: #22c55e;
-            --incorrect-red: #ef4444;
-        }
+
+:root {
+    /* Warna Utama (Biru Danone) */
+    --brand-blue: #007dc5; 
+    --brand-blue-dark: #005a9e;
+
+    /* Warna Aksen */
+    --healthy-green: #73c412; /* Hijau segar untuk progres/sukses */
+    --accent-sky: #89cff0;   /* Biru muda untuk highlight */
+
+    /* Warna Netral */
+    --light-gray: #f8f9fa;   /* Latar belakang yang lebih bersih */
+    --medium-gray: #e9ecef; /* Untuk border & garis pemisah */
+    --dark-slate: #212529;   /* Teks yang lebih solid */
+
+    /* Warna Status */
+    --correct-green: #28a745;
+    --incorrect-red: #dc3545;
+}
 
         body { font-family: 'Inter', sans-serif; background-color: var(--light-gray); }
         .path-connector { position: absolute; top: 50%; left: 50%; width: 150%; height: 4px; background: repeating-linear-gradient(90deg, #cbd5e1, #cbd5e1 10px, transparent 10px, transparent 20px); transform: translateX(-50%); z-index: 0; }
