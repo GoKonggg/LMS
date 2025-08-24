@@ -374,9 +374,9 @@ moduleContent: {
 
 
     // Update Header profile
-    document.querySelector('header .font-semibold').textContent = user.name;
-    document.querySelector('header .text-xs').textContent = user.division;
-    document.querySelector('header img').src = `https://placehold.co/40x40/E0F2FE/00539F?text=${user.avatar}`;
+    document.getElementById('header-user-name').textContent = user.name;
+document.getElementById('header-user-division').textContent = user.division;
+document.getElementById('header-user-avatar').src = `https://placehold.co/40x40/E0F2FE/00539F?text=${user.avatar}`;
 
 
     // Update "Continue Learning"
@@ -1053,8 +1053,9 @@ function openModule(moduleId) {
     }
 }
 
-        function renderEmployeeView() {
-    // Render sidebar untuk employee
+        // GANTI FUNGSI renderEmployeeView LAMA ANDA DENGAN VERSI INI
+function renderEmployeeView() {
+    // 1. Render sidebar khusus untuk employee
     const sidebarNav = document.querySelector('#main-sidebar nav');
     sidebarNav.innerHTML = `
         <a href="#" id="nav-dashboard" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg">
@@ -1073,7 +1074,8 @@ function openModule(moduleId) {
             <i data-feather="cpu"></i> AI Simulator
         </a>
     `;
-    // Tambahkan kembali event listener untuk nav item yg baru dibuat
+
+    // 2. Hubungkan kembali event listener untuk navigasi employee
     ui.navDashboard = document.getElementById('nav-dashboard');
     ui.navPath = document.getElementById('nav-path');
     ui.navNotes = document.getElementById('nav-notes');
@@ -1088,9 +1090,11 @@ function openModule(moduleId) {
 
     feather.replace();
     
-    // Update semua data UI employee & tampilkan dashboardnya
+    // 3. Update semua data UI khusus employee
     updateUI();
-    showLmsView(ui.dashboardView);
+    
+    // 4. (PALING PENTING) Tampilkan dashboard KARYAWAN yang benar
+    showLmsView(ui.dashboardView); 
 }
 
     function renderManagerView() {
