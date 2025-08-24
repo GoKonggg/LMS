@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LMS Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <link rel = "stylesheet" href = "style.css">
+    <style>
+        
+    </style>
+</head>
+<body class="text-slate-800">
+
+    <!-- Landing Page -->
+    <div id="landing-page" class="page">
+        <div class="min-h-screen bg-white flex flex-col items-center justify-center text-center p-8">
+            <div style="background-color: var(--brand-blue);" class="p-4 rounded-2xl mb-6 inline-block">
+                <i data-feather="award" class="text-white w-12 h-12"></i>
+            </div>
+            <h1 class="text-5xl md:text-6xl font-extrabold text-slate-900">Welcome to the Corporate Training Platform</h1>
+            <p class="mt-4 text-lg text-slate-600 max-w-2xl">Sharpen your skills, practice with real-world simulations, and drive growth across the company.</p>
+            <button id="go-to-login-btn" style="background-color: var(--brand-blue);" class="mt-10 hover:opacity-90 text-white font-bold py-4 px-10 rounded-full text-lg transition-transform transform hover:scale-105">
+                Start Training
+            </button>
+        </div>
+    </div>
+<div id="login-page" class="page hidden">
+    <div class="min-h-screen bg-slate-50 flex flex-col items-center justify-center p-4">
+        <div class="w-full max-w-sm text-center">
+            <div style="background-color: var(--brand-blue);" class="p-3 rounded-xl mb-6 inline-block">
+                <i data-feather="award" class="text-white w-8 h-8"></i>
+            </div>
+            <h2 class="text-3xl font-bold text-slate-900">Corporate Training</h2>
+            <p class="text-slate-500 mt-2 mb-10">Pilih peran Anda untuk melanjutkan (Demo)</p>
+            
+            <div class="space-y-4">
+                <button id="login-as-employee-btn" style="background-color: var(--brand-blue);" class="w-full hover:opacity-90 text-white font-bold py-4 px-4 rounded-lg text-lg transition-transform transform hover:scale-105">
+                    Login sebagai Employee (Alex Ryder)
+                </button>
+                <button id="login-as-manager-btn" class="w-full bg-slate-700 hover:bg-slate-800 text-white font-bold py-4 px-4 rounded-lg text-lg transition-transform transform hover:scale-105">
+                    Login sebagai Manager (Jane Doe)
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- Main LMS Application -->
+    <div id="lms-app" class="page hidden">
+        <div class="flex h-screen overflow-hidden">
+            <!-- Sidebar -->
+            <aside id ="main-sidebar" class="w-64 bg-white shadow-lg flex flex-col">
+                <div class="flex items-center gap-3 p-6 border-b">
+                    <div style="background-color: var(--brand-blue);" class="p-2 rounded-lg"><i data-feather="trophy" class="text-white"></i></div>
+                    <h1 class="text-2xl font-bold text-slate-800">Training Hub</h1>
+                </div>
+                
+                <div class="flex flex-col items-center text-center border-b p-6">
+                    <img src="https://placehold.co/100x100/E0F2FE/00539F?text=AR" alt="Avatar" class="rounded-full mb-3 border-4" style="border-color: #bae6fd;">
+                    <h2 class="font-bold text-lg text-slate-900">Alex Ryder</h2>
+                    <p class="text-sm text-slate-500">Sales Division</p>
+                    <div class="w-full bg-slate-200 rounded-full h-2.5 mt-3">
+                        <div id="xp-bar" class="h-2.5 rounded-full" style="background-color: var(--brand-blue);"></div>
+                    </div>
+                    <p id="xp-text" class="text-sm font-semibold mt-1 text-slate-600">450 / 1000 XP</p>
+                </div>
+
+                <nav class="p-4 flex-grow">
+                    <a href="#" id="nav-dashboard" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-slate-600 hover:bg-sky-50 hover:text-sky-700">
+                        <i data-feather="home"></i> Dashboard
+                    </a>
+                    <a href="#" id="nav-path" class="sidebar-link flex items-center gap-3 px-4 py-3 mt-2 rounded-lg text-slate-600 hover:bg-sky-50 hover:text-sky-700">
+                        <i data-feather="map"></i> Learning Path
+                    </a>
+                    <a href="#" id="nav-notes" class="sidebar-link flex items-center gap-3 px-4 py-3 mt-2 rounded-lg text-slate-600 hover:bg-sky-50 hover:text-sky-700">
+                        <i data-feather="edit-3"></i> My Notes
+                    </a>
+                    <a href="#" id="nav-peer" class="sidebar-link flex items-center gap-3 px-4 py-3 mt-2 rounded-lg text-slate-600 hover:bg-sky-50 hover:text-sky-700">
+                        <i data-feather="users"></i> Peer Learning
+                    </a>
+                    <a href="#" id="ai-practice-btn" class="sidebar-link flex items-center gap-3 px-4 py-3 mt-2 rounded-lg text-slate-600 hover:bg-sky-50 hover:text-sky-700">
+                        <i data-feather="cpu"></i> AI Simulator
+                    </a>
+                </nav>
+                
+                <div class="p-6 border-t">
+    <button id="logout-btn" class="w-full bg-slate-100 hover:bg-slate-200 text-slate-600 font-semibold py-2 px-4 rounded-lg flex items-center justify-center gap-2">
+        <i data-feather="log-out" class="w-4 h-4"></i>Logout
+    </button>
+</div>
+            </aside>
+
+            <!-- Main Content -->
+            <main class="flex-1 overflow-y-auto relative">
+                <!-- Header -->
+                <header id="main-header" class="flex items-center justify-between p-6 border-b bg-white sticky top-0 z-10">
+                    <h1 id="main-header-title" class="text-2xl font-bold text-slate-900">Dashboard</h1>
+                    <div class="flex items-center gap-4">
+                        <button id="leaderboard-btn" class="text-slate-500 hover:text-slate-800" title="Show Leaderboard">
+                            <i data-feather="award" class="w-6 h-6"></i>
+                        </button>
+                        <i data-feather="bell" class="text-slate-500 hover:text-slate-800 cursor-pointer"></i>
+                        <div class="flex items-center gap-2">
+                            <img src="https://placehold.co/40x40/E0F2FE/00539F?text=AR" alt="Avatar" class="rounded-full">
+                            <div>
+                                <h3 class="font-semibold text-slate-800">Alex Ryder</h3>
+                                <p class="text-xs text-slate-500">Sales Division</p>
+                            </div>
+                        </div>
+                    </div>
+                </header>
+
+                <!-- Dashboard View -->
+                <div id="dashboard-view" class="lms-view p-10">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <!-- Continue Learning -->
+                        <div class="md:col-span-2 text-white p-8 rounded-2xl shadow-lg" style="background-color: var(--brand-blue);">
+                            <h2 class="text-3xl font-bold">Welcome back, Alex!</h2>
+                            <p class="mt-2 opacity-80">Ready to continue your journey? Your next challenge awaits.</p>
+                            <div id="continue-learning-card" class="mt-6 bg-white/20 p-4 rounded-lg">
+                                <p class="text-sm opacity-90">Next Up:</p>
+                                <h3 id="next-module-title" class="font-bold text-lg">Module Title</h3>
+                            </div>
+                            <button id="continue-learning-btn" class="mt-6 bg-white font-bold py-3 px-6 rounded-full transition-transform transform hover:scale-105" style="color: var(--brand-blue);">
+                                Start Module
+                            </button>
+                        </div>
+                        <!-- Stats -->
+                        <div class="space-y-4">
+                            <div class="bg-white p-4 rounded-xl shadow flex items-center gap-4">
+                                <div class="bg-amber-100 p-3 rounded-full"><i data-feather="zap" class="text-amber-500 streak-flame"></i></div>
+                                <div><p id="streak-count" class="font-bold text-2xl">5</p><p class="text-sm text-slate-500">Day Streak</p></div>
+                            </div>
+                            <div class="bg-white p-4 rounded-xl shadow flex items-center gap-4">
+                                <div class="bg-green-100 p-3 rounded-full"><i data-feather="check-circle" class="text-green-500"></i></div>
+                                <div><p id="modules-completed" class="font-bold text-2xl">3</p><p class="text-sm text-slate-500">Modules Done</p></div>
+                            </div>
+                             <div class="bg-white p-4 rounded-xl shadow flex items-center gap-4">
+                                <div class="bg-sky-100 p-3 rounded-full"><i data-feather="trending-up" class="text-sky-500"></i></div>
+                                <div><p id="xp-text-dashboard" class="font-bold text-2xl">150</p><p class="text-sm text-slate-500">Total XP</p></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Announcements -->
+                    <div class="mt-8">
+                        <h2 class="text-xl font-bold text-slate-800 mb-4">Announcements</h2>
+                        <div class="bg-white p-6 rounded-xl shadow space-y-4">
+                            <div class="border-l-4 pl-4" style="border-color: var(--brand-blue);">
+                                <h3 class="font-semibold">New Q3 training resources available!</h3>
+                                <p class="text-sm text-slate-600">Check out the latest case studies added to the internal library.</p>
+                            </div>
+                            <div class="border-l-4 pl-4 border-amber-400">
+                                <h3 class="font-semibold">Reminder: Complete Compliance Training by EOW</h3>
+                                <p class="text-sm text-slate-600">All employees must complete the mandatory compliance module before Friday.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Learning Path View -->
+                <div id="learning-path-view" class="lms-view hidden p-10">
+                    <div id="learning-path" class="space-y-16"></div>
+                </div>
+
+                <!-- My Notes View -->
+                <div id="notes-view" class="lms-view hidden p-10">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="md:col-span-1">
+                            <div class="bg-white p-6 rounded-xl shadow">
+                                <h2 class="text-xl font-bold text-slate-800 mb-4">New Note</h2>
+                                <form id="note-form">
+                                    <textarea id="note-input" class="w-full h-40 p-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500" placeholder="Write down your key takeaways..."></textarea>
+                                    <button type="submit" style="background-color: var(--brand-blue);" class="w-full mt-4 hover:opacity-90 text-white font-bold py-3 rounded-lg">Save Note</button>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="md:col-span-2">
+                             <h2 class="text-xl font-bold text-slate-800 mb-4">Your Saved Notes</h2>
+                             <div id="notes-container" class="space-y-4"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Peer Learning View -->
+                <div id="peer-learning-view" class="lms-view hidden p-10">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="md:col-span-1">
+                            <div class="bg-white p-6 rounded-xl shadow">
+                                <h2 class="text-xl font-bold text-slate-800 mb-4">Create a Session</h2>
+                                <form id="peer-session-form">
+                                    <div class="space-y-4">
+                                        <div>
+                                            <label for="session-topic" class="block text-sm font-medium text-slate-700">Topic</label>
+                                            <input type="text" id="session-topic" class="mt-1 block w-full px-3 py-2 border border-slate-300 rounded-lg" required>
+                                        </div>
+                                        <div>
+                                            <label for="session-desc" class="block text-sm font-medium text-slate-700">Description</label>
+                                            <textarea id="session-desc" class="mt-1 block w-full h-24 px-3 py-2 border border-slate-300 rounded-lg" required></textarea>
+                                        </div>
+                                        <div>
+                                            <label for="session-link" class="block text-sm font-medium text-slate-700">Meeting Link</label>
+                                            <input type="url" id="session-link" class="mt-1 block w-full px-3 py-2 border border-slate-300 rounded-lg" required>
+                                        </div>
+                                        <button type="submit" style="background-color: var(--brand-blue);" class="w-full mt-4 hover:opacity-90 text-white font-bold py-3 rounded-lg">Post Session</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="md:col-span-2">
+                             <h2 class="text-xl font-bold text-slate-800 mb-4">Active Sessions</h2>
+                             <div id="peer-sessions-container" class="space-y-4"></div>
+                        </div>
+                    </div>
+                </div>
+                <div id="manager-dashboard-view" class="lms-view hidden p-10">
+    </div>
+                <div id="module-detail-view" class="lms-view hidden">
+    <div class="flex h-full">
+        <aside class="w-80 bg-white flex flex-col border-r h-full">
+            <div class="p-4 border-b">
+                <button id="back-to-path-btn-detail" class="flex items-center gap-2 text-sm text-slate-600 font-semibold hover:text-slate-900">
+                    <i data-feather="arrow-left" class="w-4 h-4"></i>
+                    Back to Path
+                </button>
+            </div>
+            <div class="p-6">
+                <h2 id="module-sidebar-title" class="text-xl font-bold text-slate-800">Module Title</h2>
+                <div class="w-full bg-slate-200 rounded-full h-2 mt-3">
+                    <div id="module-progress-bar" class="bg-sky-500 h-2 rounded-full" style="width: 0%;"></div>
+                </div>
+                <p id="module-progress-text" class="text-sm text-slate-500 mt-1">0% Complete</p>
+            </div>
+            <nav id="module-toc" class="flex-grow overflow-y-auto px-4">
+                </nav>
+        </aside>
+
+        <main class="flex-1 bg-slate-50 overflow-y-auto">
+            <div class="p-10 max-w-4xl mx-auto">
+                <h1 id="content-title" class="text-4xl font-extrabold text-slate-900">Lesson Title</h1>
+                <p id="content-description" class="mt-4 text-lg text-slate-600">
+                    Description for the lesson will appear here.
+                </p>
+                <div id="content-area" class="mt-8 aspect-video bg-slate-800 rounded-lg flex items-center justify-center">
+                    <i data-feather="play-circle" class="w-20 h-20 text-white/50"></i>
+                </div>
+                 <div class="mt-8 flex justify-end">
+                    <button id="next-content-btn" style="background-color: var(--brand-blue);" class="hover:opacity-90 text-white font-bold py-3 px-8 rounded-lg text-base flex items-center gap-2">
+                        Next <i data-feather="arrow-right" class="w-5 h-5"></i>
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+                <div id="employee-detail-view" class="lms-view hidden p-10">
+    </div>
+                <!-- Learning Module View (Duolingo-like) -->
+                <div id="learning-module-view" class="lms-view hidden bg-white h-full flex flex-col">
+                    <!-- Header -->
+                    <div class="p-4 border-b flex items-center gap-4 flex-shrink-0">
+                        <button id="close-lesson-btn" class="text-slate-500 hover:text-slate-800"><i data-feather="x" class="w-7 h-7"></i></button>
+                        <div class="w-full bg-slate-200 rounded-full h-4">
+                            <div id="lesson-progress-bar" class="progress-bar-fill h-4 rounded-full" style="background-color: var(--healthy-green); width: 0%;"></div>
+                        </div>
+                        <!-- Hearts / Lives -->
+                        <div id="lesson-hearts" class="flex items-center gap-2"></div>
+                    </div>
+                    <!-- Content -->
+                    <div class="flex-grow flex flex-col items-center justify-center p-4 md:p-8 overflow-y-auto">
+                        <div class="w-full max-w-2xl">
+                             <div id="lesson-character-container">
+                                <!-- Animated Character SVG -->
+                                <svg id="lesson-character" viewBox="0 0 150 150" width="150" height="150">
+                                    <defs>
+                                        <radialGradient id="body-gradient" cx="50%" cy="80%" r="70%" fx="50%" fy="80%">
+                                            <stop offset="0%" style="stop-color: #5294e2;" />
+                                            <stop offset="100%" style="stop-color: var(--brand-blue);" />
+                                        </radialGradient>
+                                        <filter id="gooey-shadow" x="-40%" y="-40%" width="180%" height="180%">
+                                            <feGaussianBlur in="SourceAlpha" stdDeviation="3" result="blur" />
+                                            <feOffset in="blur" dx="0" dy="4" result="offsetBlur" />
+                                            <feFlood flood-color="#000000" flood-opacity="0.2" result="offsetColor"/>
+                                            <feComposite in="offsetColor" in2="offsetBlur" operator="in" result="offsetBlur"/>
+                                            <feMerge>
+                                                <feMergeNode in="offsetBlur"/>
+                                                <feMergeNode in="SourceGraphic"/>
+                                            </feMerge>
+                                        </filter>
+                                    </defs>
+                                    <g id="character-group" filter="url(#gooey-shadow)">
+                                        <path id="character-body" d="M 30 130 C 10 100, 10 50, 40 30 S 110 10, 120 40 C 140 70, 140 100, 110 130 Z" fill="url(#body-gradient)" />
+                                        <g id="eyes-group">
+                                            <g class="eye">
+                                                <circle cx="55" cy="70" r="12" fill="white" />
+                                                <circle id="left-pupil" cx="58" cy="73" r="6" fill="#1e293b" />
+                                                <circle cx="54" cy="66" r="3" fill="white" fill-opacity="0.8" />
+                                            </g>
+                                            <g class="eye">
+                                                <circle cx="95" cy="70" r="12" fill="white" />
+                                                <circle id="right-pupil" cx="92" cy="73" r="6" fill="#1e293b" />
+                                                <circle cx="96" cy="66" r="3" fill="white" fill-opacity="0.8" />
+                                            </g>
+                                        </g>
+                                        <path id="mouth" d="M 65 100 C 75 110, 85 110, 95 100" stroke="white" stroke-width="4" fill="none" stroke-linecap="round" />
+                                    </g>
+                                </svg>
+                             </div>
+                            <h2 id="lesson-question" class="text-2xl md:text-3xl font-bold text-slate-800 mb-8 text-center"></h2>
+                            <div id="lesson-options" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+                        </div>
+                    </div>
+                     <!-- Lesson Completion Screen -->
+                    <div id="lesson-completion-screen" class="hidden flex-grow flex items-center justify-center p-8">
+                        <div class="text-center">
+                            <div class="w-24 h-24 bg-green-100 text-green-500 rounded-full flex items-center justify-center mb-6 mx-auto">
+                                <i data-feather="check" class="w-12 h-12"></i>
+                            </div>
+                            <h2 class="text-4xl font-extrabold text-slate-800">Lesson Complete!</h2>
+                            <p id="lesson-xp-award" class="mt-2 text-lg text-slate-600"></p>
+                            <button id="finish-lesson-btn" class="mt-8 text-white font-bold py-3 px-10 rounded-full text-lg" style="background-color: var(--brand-blue);">Continue</button>
+                        </div>
+                    </div>
+                     <!-- Lesson Failed Screen -->
+                    <div id="lesson-failed-screen" class="hidden flex-grow flex items-center justify-center p-8">
+                        <div class="text-center">
+                            <div class="w-24 h-24 bg-red-100 text-red-500 rounded-full flex items-center justify-center mb-6 mx-auto">
+                                <i data-feather="x-circle" class="w-12 h-12"></i>
+                            </div>
+                            <h2 class="text-4xl font-extrabold text-slate-800">Out of Hearts</h2>
+                            <p class="mt-2 text-lg text-slate-600">Don't worry, you can try again!</p>
+                            <button id="retry-lesson-btn" class="mt-8 text-white font-bold py-3 px-10 rounded-full text-lg" style="background-color: var(--brand-blue);">Back to Path</button>
+                        </div>
+                    </div>
+                    <!-- Footer -->
+                    <div id="lesson-footer" class="border-t bg-white flex-shrink-0">
+                        <div id="lesson-feedback" class="h-28 p-4 flex flex-col items-center justify-center text-center">
+                            <h3 id="feedback-title" class="text-2xl font-bold"></h3>
+                            <p id="feedback-correct-answer" class="text-lg mt-1 font-medium text-slate-700"></p>
+                        </div>
+                        <div class="p-4 flex items-center justify-center">
+                            <div id="lesson-buttons-container" class="w-full max-w-xs flex">
+                                <button id="lesson-check-btn" class="w-full bg-slate-200 text-slate-500 font-bold uppercase tracking-wider py-4 px-6 rounded-2xl text-lg cursor-not-allowed shadow-inner" disabled>Check</button>
+                                <button id="lesson-continue-btn" class="hidden w-full text-white font-bold uppercase tracking-wider py-4 px-6 rounded-2xl text-lg shadow-lg">Continue</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+    </div>
+
+    
+    <div id="add-note-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50 hidden modal-backdrop opacity-0">
+    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg p-6 modal-content transform scale-95">
+        <div class="flex justify-between items-center mb-4">
+            <h2 class="text-2xl font-bold flex items-center gap-2"><i data-feather="edit-3" class="text-sky-500"></i> Add Note</h2>
+            <button class="close-modal-btn text-slate-400 hover:text-slate-600"><i data-feather="x" class="w-6 h-6"></i></button>
+        </div>
+        <form id="lesson-note-form">
+            <p class="text-sm text-slate-500 mb-2">Your note will be saved under: <strong id="note-source-title">Lesson Title</strong></p>
+            <textarea id="lesson-note-input" class="w-full h-32 p-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500" placeholder="Write your key takeaways here..." required></textarea>
+            <button type="submit" style="background-color: var(--brand-blue);" class="w-full mt-4 hover:opacity-90 text-white font-bold py-3 rounded-lg">Save Note</button>
+        </form>
+    </div>
+</div>
+
+<div id="popup-quiz-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50 hidden modal-backdrop opacity-0">
+    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-xl p-8 modal-content transform scale-95">
+        <h2 class="text-2xl font-bold text-slate-800 mb-1">Concept Check!</h2>
+        <p id="popup-quiz-question" class="text-slate-600 mb-6">This is the question for the pop-up quiz.</p>
+        <div id="popup-quiz-options" class="space-y-3">
+            </div>
+        <div id="popup-quiz-feedback" class="mt-4 text-center p-3 rounded-lg hidden"></div>
+        <div class="mt-6 flex justify-end">
+            <button id="popup-quiz-submit-btn" style="background-color: var(--healthy-green);" class="hover:opacity-90 text-white font-bold py-3 px-8 rounded-lg">Submit</button>
+            <button id="popup-quiz-next-btn" style="background-color: var(--brand-blue);" class="hover:opacity-90 text-white font-bold py-3 px-8 rounded-lg hidden">Continue</button>
+        </div>
+    </div>
+</div>
+
+
+    <!-- Modals -->
+    <div id="leaderboard-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50 hidden modal-backdrop opacity-0">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md p-6 modal-content transform scale-95">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-2xl font-bold flex items-center gap-2"><i data-feather="award" class="text-amber-500"></i> Company Leaderboard</h2>
+                <button class="close-modal-btn text-slate-400 hover:text-slate-600"><i data-feather="x" class="w-6 h-6"></i></button>
+            </div>
+            <div class="bg-sky-50 border border-sky-200 text-sky-800 rounded-lg p-3 mb-4 text-center">
+                Your Overall Rank: <span id="user-rank" class="font-bold"></span>
+            </div>
+            <div class="flex gap-4 mb-4">
+                <select id="branch-filter" class="w-full bg-slate-100 border-slate-200 rounded-lg p-2 text-sm focus:ring-2 focus:ring-sky-500 focus:outline-none">
+                    <option value="all">All Branches</option>
+                </select>
+                <select id="division-filter" class="w-full bg-slate-100 border-slate-200 rounded-lg p-2 text-sm focus:ring-2 focus:ring-sky-500 focus:outline-none">
+                    <option value="all">All Divisions</option>
+                </select>
+            </div>
+            <ul id="leaderboard" class="space-y-2 max-h-80 overflow-y-auto pr-2"></ul>
+        </div>
+    </div>
+    <div id="video-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50 hidden modal-backdrop opacity-0">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-2xl p-8 modal-content transform scale-95">
+            <div class="flex justify-between items-start">
+                <div><h2 id="video-modal-title" class="text-2xl font-bold mb-1">Module Title</h2></div>
+                <button class="close-modal-btn text-slate-400 hover:text-slate-600"><i data-feather="x" class="w-6 h-6"></i></button>
+            </div>
+            <div class="my-6">
+                <div class="aspect-video bg-slate-800 rounded-lg flex items-center justify-center">
+                    <i data-feather="play-circle" class="w-16 h-16 text-white/50"></i>
+                </div>
+                <p class="mt-4 text-slate-600">Watch this short video to learn the key concepts before starting the quiz.</p>
+            </div>
+            <button id="start-lesson-btn" style="background-color: var(--healthy-green);" class="w-full hover:opacity-90 text-white font-bold py-3 px-6 rounded-lg text-lg">Start Lesson</button>
+        </div>
+    </div>
+    <div id="role-play-gate-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50 hidden modal-backdrop opacity-0">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-3xl modal-content transform scale-95 overflow-hidden grid grid-cols-1 md:grid-cols-2">
+            <div class="p-8 md:p-10 flex flex-col">
+                <h2 id="rpg-modal-title" class="text-2xl font-bold text-slate-800">Final Test</h2>
+                <p id="rpg-modal-stage" class="text-sm font-medium" style="color: var(--brand-blue);">Discovery Call</p>
+                <p class="mt-4 text-slate-600 flex-grow">To pass this gate, you must complete 3 peer-to-peer role-play sessions. The system will assign you the role of "Sales" or "Customer" to ensure you practice both sides.</p>
+                <div class="mt-6">
+                    <h3 class="font-semibold text-slate-700 mb-3">Your Progress</h3>
+                    <div id="rpg-sessions-container" class="flex gap-4"></div>
+                </div>
+                <button id="start-rpg-session-btn" style="background-color: var(--brand-blue);" class="w-full mt-8 hover:opacity-90 text-white font-bold py-3 px-6 rounded-lg transition-transform transform hover:scale-105 flex items-center justify-center gap-2 disabled:bg-slate-400">
+                    <i data-feather="play"></i>
+                    <span>Start Next Session</span>
+                </button>
+            </div>
+            <div class="hidden md:block bg-sky-50 p-8">
+                <img src="https://placehold.co/400x400/E0F2FE/00539F?text=Role-Play+Session" alt="Sales Role Play Illustration" class="w-full h-full object-contain">
+            </div>
+            <button class="close-modal-btn absolute top-4 right-4 text-slate-400 hover:text-slate-600 transition">
+                <i data-feather="x" class="w-6 h-6"></i>
+            </button>
+        </div>
+    </div>
+    <div id="case-library-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50 hidden modal-backdrop opacity-0">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-4xl p-8 modal-content transform scale-95 flex flex-col h-[90vh]">
+             <div class="flex justify-between items-start flex-shrink-0">
+                <div><h2 class="text-2xl font-bold mb-1">AI Simulator: Case Library</h2><p class="text-sm text-slate-500 font-medium">Practice with real-world scenarios.</p></div>
+                <button class="close-modal-btn text-slate-400 hover:text-slate-600"><i data-feather="x" class="w-6 h-6"></i></button>
+            </div>
+            <div class="mt-4 flex-grow overflow-y-auto pr-2"><h3 class="font-bold text-lg mb-3">Select a Case Scenario</h3><div id="case-library-container" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div></div>
+            <div class="mt-4 flex-shrink-0"><button id="start-simulation-btn" class="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-lg flex items-center justify-center gap-2 disabled:bg-slate-400 disabled:cursor-not-allowed" disabled><i data-feather="play"></i> Start Simulation</button></div>
+        </div>
+    </div>
+    <div id="ai-simulator-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50 hidden modal-backdrop opacity-0">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-2xl p-6 modal-content transform scale-95 flex flex-col h-[80vh]">
+            <div class="flex-shrink-0 pb-4 border-b"><h2 id="ai-case-title" class="text-xl font-bold">AI Simulation</h2><p class="text-sm text-slate-500">You are the <span class="font-bold" style="color: var(--brand-blue);">Sales</span>. The AI is the <span class="font-bold text-purple-600">Customer</span>.</p></div>
+            <div id="chat-window" class="flex-grow my-4 space-y-4 overflow-y-auto p-4 bg-slate-50 rounded-lg"></div>
+            <div id="feedback-window" class="hidden flex-grow my-4 p-4"><h3 class="font-bold text-lg mb-3 text-center">Session Feedback</h3><div id="feedback-content" class="space-y-3"></div></div>
+            <div class="flex-shrink-0 pt-4 border-t flex gap-2">
+                <input type="text" id="chat-input" placeholder="Type your response..." class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-sky-500 focus:outline-none">
+                <button id="send-btn" style="background-color: var(--brand-blue);" class="text-white p-3 rounded-lg hover:opacity-90"><i data-feather="send"></i></button>
+                <button id="end-session-btn" class="bg-red-500 text-white p-3 rounded-lg hover:bg-red-600">End Session</button>
+                <button id="close-feedback-btn" class="hidden w-full text-white p-3 rounded-lg hover:opacity-90" style="background-color: var(--brand-blue);">Back to Library</button>
+            </div>
+        </div>
+    </div>
+
+    <script src = "index.js">
+        
+    </script>
+</body>
+</html>
