@@ -31,13 +31,13 @@ feather.replace();
             avatar: 'AR',
             division: 'Sales',
             reportsTo: 'mgr01',
-            xp: 450,
+            xp: 150,
             levelXP: 1000,
             streak: 5,
             completionData: [
-    { moduleId: "m1-1", completedAt: "2025-08-24T18:30:00Z" }, // Selesai hari ini
-    { moduleId: "m1-2", completedAt: "2025-08-23T10:00:00Z" }, // Selesai kemarin
-    { moduleId: "m1-3", completedAt: "2025-08-24T19:00:00Z" }  // Selesai hari ini
+    { moduleId: "m1-1", completedAt: "2025-08-24T18:30:00Z" }, 
+    { moduleId: "m1-2", completedAt: "2025-08-23T10:00:00Z" }, 
+    { moduleId: "m1-3", completedAt: "2025-08-24T19:00:00Z" }  
 ],
             rolePlayProgress: {},
             notes: []
@@ -78,7 +78,7 @@ feather.replace();
         modules: [ 
             { id: "m1-1", title: "The Growth Mindset", xp: 50, type: "module", durationInMinutes: 36, tags: ["Sales", "Mindset", "Beginner"], badge: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWNpcmNsZS1zdGFyLWljb24gbHVjaWRlLWNpcmNsZS1zdGFyIj48cGF0aCBkPSJNMTEuMDUxIDcuNjE2YTEgMSAwIDAgMSAxLjkwOS4wMjRsLjczNyAxLjQ1MmExIDEgMCAwIDAgLjczNy41MzVsMS42MzQuMjU2YTEgMSAwIDAgMSAuNTg4IDEuODA2bC0xLjE3MiAxLjE2OGExIDEgMCAwIDAtLjI4Mi44NjZsLjI1OSAxLjYxM2ExIDEgMCAwIDEtMS41NDEgMS4xMzRsLTEuNDY1LS43NWExIDEgMCAwIDAtLjkxMiAwbC0xLjQ2NS43NWExIDEgMCAwIDEtMS41MzktMS4xMzNsLjI1OC0xLjYxM2ExIDEgMCAwIDAtLjI4Mi0uODY3bC0xLjE1Ni0xLjE1MmExIDEgMCAwIDEgLjU3Mi0xLjgyMmwxLjYzMy0uMjU2YTEgMSAwIDAgMCAuNzM3LS41MzV6Ii8+PGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iMTAiLz48L3N2Zz4=" }, 
             { id: "m1-2", title: "Mastering Product Knowledge", xp: 50, type: "module", durationInMinutes: 45, tags: ["Product", "Technical", "Beginner"], badge: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWNpcmNsZS1zdGFyLWljb24gbHVjaWRlLWNpcmNsZS1zdGFyIj48cGF0aCBkPSJNMTEuMDUxIDcuNjE2YTEgMSAwIDAgMSAxLjkwOS4wMjRsLjczNyAxLjQ1MmExIDEgMCAwIDAgLjczNy41MzVsMS42MzQuMjU2YTEgMSAwIDAgMSAuNTg4IDEuODA2bC0xLjE3MiAxLjE2OGExIDEgMCAwIDAtLjI4Mi44NjZsLjI1OSAxLjYxM2ExIDEgMCAwIDEtMS41NDEgMS4xMzRsLTEuNDY1LS43NWExIDEgMCAwIDAtLjkxMiAwbC0xLjQ2NS43NWExIDEgMCAwIDEtMS41MzktMS4xMzNsLjI1OC0xLjYxM2ExIDEgMCAwIDAtLjI4Mi0uODY3bC0xLjE1Ni0xLjE1MmExIDEgMCAwIDEgLjU3Mi0xLjgyMmwxLjYzMy0uMjU2YTEgMSAwIDAgMCAuNzM3LS41MzV6Ii8+PGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iMTAiLz48L3N2Zz4=" }, 
-            { id: "m1-3", title: "Handling Objections", xp: 50, type: "module", duration: "1 Hour", tags: ["Sales", "Skill", "intermediate"], badge: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWNpcmNsZS1zdGFyLWljb24gbHVjaWRlLWNpcmNsZS1zdGFyIj48cGF0aCBkPSJNMTEuMDUxIDcuNjE2YTEgMSAwIDAgMSAxLjkwOS4wMjRsLjczNyAxLjQ1MmExIDEgMCAwIDAgLjczNy41MzVsMS42MzQuMjU2YTEgMSAwIDAgMSAuNTg4IDEuODA2bC0xLjE3MiAxLjE2OGExIDEgMCAwIDAtLjI4Mi44NjZsLjI1OSAxLjYxM2ExIDEgMCAwIDEtMS41NDEgMS4xMzRsLTEuNDY1LS43NWExIDEgMCAwIDAtLjkxMiAwbC0xLjQ2NS43NWExIDEgMCAwIDEtMS41MzktMS4xMzNsLjI1OC0xLjYxM2ExIDEgMCAwIDAtLjI4Mi0uODY3bC0xLjE1Ni0xLjE1MmExIDEgMCAwIDEgLjU3Mi0xLjgyMmwxLjYzMy0uMjU2YTEgMSAwIDAgMCAuNzM3LS41MzV6Ii8+PGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iMTAiLz48L3N2Zz4=" }, 
+            { id: "m1-3", title: "Handling Objections", xp: 50, type: "module", durationInMinutes: 60, tags: ["Sales", "Skill", "intermediate"], badge: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWNpcmNsZS1zdGFyLWljb24gbHVjaWRlLWNpcmNsZS1zdGFyIj48cGF0aCBkPSJNMTEuMDUxIDcuNjE2YTEgMSAwIDAgMSAxLjkwOS4wMjRsLjczNyAxLjQ1MmExIDEgMCAwIDAgLjczNy41MzVsMS42MzQuMjU2YTEgMSAwIDAgMSAuNTg4IDEuODA2bC0xLjE3MiAxLjE2OGExIDEgMCAwIDAtLjI4Mi44NjZsLjI1OSAxLjYxM2ExIDEgMCAwIDEtMS41NDEgMS4xMzRsLTEuNDY1LS43NWExIDEgMCAwIDAtLjkxMiAwbC0xLjQ2NS43NWExIDEgMCAwIDEtMS41MzktMS4xMzNsLjI1OC0xLjYxM2ExIDEgMCAwIDAtLjI4Mi0uODY3bC0xLjE1Ni0xLjE1MmExIDEgMCAwIDEgLjU3Mi0xLjgyMmwxLjYzMy0uMjU2YTEgMSAwIDAgMCAuNzM3LS41MzV6Ii8+PGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iMTAiLz48L3N2Zz4=" }, 
             { id: "c1", title: "Final Test: Role-Play", xp: 100, type: "challenge", isRolePlayGate: true, duration: "3 Session", tags: ["Practice", "Exam", "intermediate"], badge: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWNpcmNsZS1zdGFyLWljb24gbHVjaWRlLWNpcmNsZS1zdGFyIj48cGF0aCBkPSJNMTEuMDUxIDcuNjE2YTEgMSAwIDAgMSAxLjkwOS4wMjRsLjczNyAxLjQ1MmExIDEgMCAwIDAgLjczNy41MzVsMS42MzQuMjU2YTEgMSAwIDAgMSAuNTg4IDEuODA2bC0xLjE3MiAxLjE2OGExIDEgMCAwIDAtLjI4Mi44NjZsLjI1OSAxLjYxM2ExIDEgMCAwIDEtMS41NDEgMS4xMzRsLTEuNDY1LS43NWExIDEgMCAwIDAtLjkxMiAwbC0xLjQ2NS43NWExIDEgMCAwIDEtMS41MzktMS4xMzNsLjI1OC0xLjYxM2ExIDEgMCAwIDAtLjI4Mi0uODY3bC0xLjE1Ni0xLjE1MmExIDEgMCAwIDEgLjU3Mi0xLjgyMmwxLjYzMy0uMjU2YTEgMSAwIDAgMCAuNzM3LS41MzV6Ii8+PGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iMTAiLz48L3N2Zz4=" } 
         ] 
     },
@@ -280,7 +280,35 @@ moduleContent: {
             peerSessions: [ 
                 { id: 'ps001', topic: "Role-playing difficult client objections", description: "Let's practice handling tough questions about pricing and features. I can be the client first.", link: "https://meet.google.com/xyz-abc-def", author: "Sarah J.", participant: "Mike L." },
                 { id: 'ps002', topic: "Enterprise Deal Strategy Session", description: "I'm working on a large enterprise account and would love to brainstorm some strategies for navigating their procurement process.", link: "https://meet.google.com/xyz-abc-def", author: "Mike L.", participant: null }
-            ]
+            ],
+
+            // Hapus 'rolePlayScripts' yang lama dan ganti dengan ini:
+        rolePlayCases: {
+    "c1": { // ID dari module challenge
+        title: "Handling a Price-Conscious Client",
+        // Briefing untuk peran Sales
+        salesBriefing: {
+            objective: "Your goal is to convince the client to schedule a full product demo next week.",
+            problem: "The client is very interested in the product but has repeatedly mentioned their limited budget. You must demonstrate value that outweighs the cost."
+        },
+        // Briefing untuk peran Customer
+        customerBriefing: {
+            objective: "Your goal is to get a significant discount (at least 20%) or walk away.",
+            problem: "You genuinely need a new CRM and this product seems perfect, but your boss has given you a very strict budget. You cannot approve the purchase at the current list price."
+        },
+        // Rubrik Penilaian (digunakan oleh Customer untuk menilai Sales)
+        reviewRubric: [
+            { id: 'empathy', criterion: "Empathy & Understanding", description: "Did the sales rep listen and acknowledge your budget concerns?" },
+            { id: 'value_prop', criterion: "Value Proposition", description: "Did they effectively communicate the product's value beyond just its features?" },
+            { id: 'solutioning', criterion: "Problem Solving", description: "Did they offer creative solutions or compromises instead of just saying no?" },
+            { id: 'next_steps', criterion: "Clarity on Next Steps", description: "Was the call concluded with a clear, actionable next step?" }
+        ]
+    },
+    // Anda bisa menambahkan kasus-kasus lain dengan ID "c2", "c3", dst.
+},
+
+// Kita juga butuh tempat untuk menyimpan sesi-sesi yang sedang berjalan
+peerRolePlaySessions: [],
         };
 
         let currentModule = null, currentGateId = null, selectedCaseId = null;
@@ -332,16 +360,31 @@ moduleContent: {
     else if (viewToShow === ui.managerDashboardView) { ui.mainHeaderTitle.textContent = "Team Dashboard"; }
 }
 
-    function isModuleUnlocked(moduleId) {
+    // GANTI FUNGSI isModuleUnlocked LAMA ANDA DENGAN VERSI BARU INI
+        function isModuleUnlocked(moduleId) {
     const allModulesInOrder = state.learningPath.flatMap(stage => stage.modules);
     const moduleIndex = allModulesInOrder.findIndex(m => m.id === moduleId);
 
-    if (moduleIndex === 0) return true;
+    // Modul pertama selalu tidak terkunci
+    if (moduleIndex === 0) {
+        console.log(`Pengecekan untuk modul '${moduleId}': Unlocked (modul pertama)`);
+        return true;
+    }
+
+    // Jika modul tidak ditemukan, anggap terkunci
+    if (moduleIndex < 0) {
+        console.log(`Pengecekan untuk modul '${moduleId}': Locked (modul tidak ditemukan)`);
+        return false;
+    }
 
     const previousModuleId = allModulesInOrder[moduleIndex - 1].id;
     
-    // Logika baru: Cek apakah modul sebelumnya ada di dalam completionData
-    return state.currentUser.completionData.some(data => data.moduleId === previousModuleId);
+    // Cek apakah modul sebelumnya sudah ada di data penyelesaian
+    const isUnlocked = state.currentUser.completionData.some(data => data.moduleId === previousModuleId);
+
+    console.log(`Pengecekan untuk modul '${moduleId}': Perlu '${previousModuleId}' selesai. Hasil: ${isUnlocked ? 'UNLOCKED' : 'LOCKED'}`);
+    
+    return isUnlocked;
 }
 
         // GANTI FUNGSI getNextModule LAMA ANDA DENGAN INI
@@ -912,6 +955,7 @@ function openModule(moduleId) {
         
         function openRolePlayGate(gateId) {
             currentGateId = gateId;
+            console.log("--- DATA SAAT AKAN DIBACA ---", JSON.parse(JSON.stringify(state.currentUser.rolePlayProgress)));
             if (!state.currentUser.rolePlayProgress[gateId]) {
               state.currentUser.rolePlayProgress[gateId] = [];
 }
@@ -923,61 +967,261 @@ function openModule(moduleId) {
             openModal(modal);
         }
 
+        
         function renderRolePlayGate() {
-            const progress = state.currentUser.rolePlayProgress[currentGateId];
-            const completedCount = progress.length;
-            const modal = document.getElementById('role-play-gate-modal');
-            const container = modal.querySelector('#rpg-sessions-container');
-            let sessionHTML = '';
-            for (let i = 1; i <= 3; i++) {
-                const session = progress[i - 1];
-                let statusClass, textClass, icon;
-                if (session) {
-                    statusClass = 'bg-sky-100';
-                    textClass = 'text-sky-700';
-                    icon = 'check';
-                } else {
-                    statusClass = 'bg-slate-100';
-                    textClass = 'text-slate-500';
-                    icon = 'circle';
-                }
-                sessionHTML += `<div class="flex-1 text-center"><div class="w-12 h-12 mx-auto rounded-full flex items-center justify-center ${statusClass}"><i data-feather="${icon}" class="${textClass}"></i></div><p class="text-xs mt-2 font-semibold ${textClass}">Session ${i}</p></div>`;
-            }
-            container.innerHTML = sessionHTML;
-            if (completedCount >= 3) {
-                ui.startRpgSessionBtn.disabled = true;
-                ui.startRpgSessionBtn.querySelector('span').textContent = 'Test Cleared!';
-            } else {
-                ui.startRpgSessionBtn.disabled = false;
-                ui.startRpgSessionBtn.querySelector('span').textContent = 'Start Next Session';
-            }
-            feather.replace();
-        }
+   
+    const progress = state.currentUser.rolePlayProgress[currentGateId];
+const completedCount = progress ? progress.length : 0;
+    const modal = document.getElementById('role-play-gate-modal');
+    // ... sisa fungsi Anda tetap sama ...
+    const container = modal.querySelector('#rpg-sessions-container');
+    
+    let sessionHTML = '';
+    for (let i = 1; i <= 3; i++) {
+        const isCompleted = i <= completedCount;
+        
+        const statusClass = isCompleted ? 'bg-green-100' : 'bg-slate-100';
+        const textClass = isCompleted ? 'text-green-700' : 'text-slate-500';
+        const icon = isCompleted ? 'check-circle' : 'circle';
 
+        sessionHTML += `
+            <div class="flex-1 text-center">
+                <div class="w-12 h-12 mx-auto rounded-full flex items-center justify-center ${statusClass}">
+                    <i data-feather="${icon}" class="${textClass}"></i>
+                </div>
+                <p class="text-xs mt-2 font-semibold ${textClass}">Session ${i}</p>
+            </div>
+        `;
+    }
+    
+    container.innerHTML = sessionHTML;
+
+    const startButton = modal.querySelector('#start-rpg-session-btn');
+    if (completedCount >= 3) {
+        startButton.disabled = true;
+        startButton.querySelector('span').textContent = 'Test Cleared!';
+        startButton.classList.add('bg-green-500');
+    } else {
+        startButton.disabled = false;
+        startButton.querySelector('span').textContent = 'Start Next Session';
+        startButton.classList.remove('bg-green-500');
+    }
+
+    feather.replace();
+}
+
+        // function startRpgSession() {
+        //     const progress = state.currentUser.rolePlayProgress[currentGateId];
+        //     if (progress.length >= 3) return;
+        //     const rolesPlayed = progress.map(s => s.role);
+        //     const roles = ["Sales", "Customer"];
+        //     let assignedRole;
+        //     const hasPlayedSales = rolesPlayed.includes("Sales");
+        //     const hasPlayedCustomer = rolesPlayed.includes("Customer");
+        //     if (!hasPlayedSales) assignedRole = "Sales";
+        //     else if (!hasPlayedCustomer) assignedRole = "Customer";
+        //     else assignedRole = roles[Math.floor(Math.random() * roles.length)];
+        //     progress.push({ role: assignedRole, completedAt: new Date() });
+        //     if (progress.length >= 3) {
+        //         const { module } = findModule(currentGateId);
+        //         state.user.xp += module.xp;
+        //         state.currentUser.completionData.push({ moduleId: currentGateId, completedAt: new Date().toISOString() });
+        //         setTimeout(() => {
+        //             closeModal(ui.rolePlayGateModal);
+        //             updateUI();
+        //         }, 1500);
+        //     }
+        //     renderRolePlayGate();
+        // }
+
+            // GANTI FUNGSI LAMA DENGAN VERSI BARU INI
+        // GANTI FUNGSI LAMA DENGAN VERSI BARU INI
         function startRpgSession() {
-            const progress = state.currentUser.rolePlayProgress[currentGateId];
-            if (progress.length >= 3) return;
-            const rolesPlayed = progress.map(s => s.role);
-            const roles = ["Sales", "Customer"];
-            let assignedRole;
-            const hasPlayedSales = rolesPlayed.includes("Sales");
-            const hasPlayedCustomer = rolesPlayed.includes("Customer");
-            if (!hasPlayedSales) assignedRole = "Sales";
-            else if (!hasPlayedCustomer) assignedRole = "Customer";
-            else assignedRole = roles[Math.floor(Math.random() * roles.length)];
-            progress.push({ role: assignedRole, completedAt: new Date() });
-            if (progress.length >= 3) {
-                const { module } = findModule(currentGateId);
-                state.user.xp += module.xp;
-                state.currentUser.completionData.push({ moduleId: currentGateId, completedAt: new Date().toISOString() });
-                setTimeout(() => {
-                    closeModal(ui.rolePlayGateModal);
-                    updateUI();
-                }, 1500);
-            }
-            renderRolePlayGate();
-        }
+    const progress = state.currentUser.rolePlayProgress[currentGateId];
+    if (progress.length >= 3) return;
 
+    // 1. Ambil data kasus berdasarkan ID gerbang (gate)
+    const caseData = state.rolePlayCases[currentGateId];
+    if (!caseData) {
+        alert('Case data for this challenge is not found!');
+        return;
+    }
+
+    // 2. Untuk mockup, kita tetapkan pengguna selalu menjadi 'Sales'
+    const userRole = 'Sales';
+    const briefing = caseData.salesBriefing;
+
+    // 3. Isi konten modal briefing dengan data yang sesuai
+    document.getElementById('briefing-role').textContent = userRole;
+    document.getElementById('briefing-objective').textContent = briefing.objective;
+    document.getElementById('briefing-problem').textContent = briefing.problem;
+
+    // 4. Buka modal briefing
+    openModal(ui.rolePlayBriefingModal);
+
+    // (Logika untuk tombol "Begin Session" akan kita tambahkan nanti)
+}
+
+// TAMBAHKAN FUNGSI BARU INI
+   // GANTI FUNGSI launchPairingAnimation ANDA DENGAN INI
+        function launchPairingAnimation() {
+    // Siapkan & buka modal animasi
+    const statusText = document.getElementById('pairing-status-text');
+    const caseCard = document.getElementById('case-card-reveal');
+    
+    // Reset tampilan
+    statusText.innerHTML = '';
+    caseCard.classList.add('opacity-0', 'scale-95');
+    document.getElementById('peer-avatar-placeholder').classList.remove('hidden');
+    document.getElementById('peer-avatar-result').classList.add('hidden');
+
+    openModal(ui.rolePlayPairingModal);
+
+    // Jalankan urutan animasi
+    setTimeout(() => {
+        statusText.innerHTML = `<span class="fade-in-out">Finding a peer for you...</span>`;
+    }, 500);
+
+    setTimeout(() => {
+        document.getElementById('peer-avatar-placeholder').classList.add('hidden');
+        const peerAvatar = document.getElementById('peer-avatar-result');
+        peerAvatar.src = `https://placehold.co/100x100/c4b5fd/4338ca?text=SJ`;
+        peerAvatar.classList.remove('hidden');
+        statusText.innerHTML = `<span class="fade-in-out">Peer found! Analyzing case files...</span>`;
+    }, 3000);
+
+    setTimeout(() => {
+        statusText.innerHTML = `<span style="color: var(--healthy-green);">Match Found!</span>`;
+        
+        // FIX: Menggunakan state.rolePlayScripts yang benar
+        const scriptData = state.rolePlayScripts[currentGateId];
+        document.getElementById('case-title-reveal').textContent = scriptData.title;
+        document.getElementById('case-role-reveal').textContent = scriptData.userRole;
+        
+        caseCard.classList.remove('opacity-0', 'scale-95');
+
+    }, 5500);
+
+    setTimeout(() => {
+        closeModal(ui.rolePlayPairingModal);
+        setTimeout(() => {
+            // FIX: Panggil fungsi launchRolePlaySession yang benar
+            launchRolePlaySession(currentGateId);
+        }, 300);
+    }, 7500);
+}
+
+        // TAMBAHKAN FUNGSI BARU INI
+    function launchRolePlaySession(moduleId) {
+    const scriptData = state.rolePlayScripts[moduleId];
+    if (!scriptData) {
+        alert("Skenario role-play tidak ditemukan!");
+        return;
+    }
+
+    // Siapkan state untuk sesi role-play
+    currentRolePlay = {
+        moduleId: moduleId,
+        script: scriptData.script,
+        currentTurn: "start"
+    };
+
+    // Isi detail di modal sesi role-play
+    document.getElementById('rpg-session-title').textContent = scriptData.title;
+    document.getElementById('rpg-session-role').textContent = `Anda berperan sebagai: ${scriptData.userRole}`;
+    document.getElementById('rpg-interaction-window').innerHTML = '';
+
+    // Buka modal & render giliran pertama
+    openModal(ui.rolePlaySessionModal);
+    renderRolePlayTurn(scriptData.script.start);
+}
+
+       
+
+// Fungsi untuk menampilkan pesan di jendela chat
+        function addChatMessage(message, role) {
+    const bubble = document.createElement('div');
+    const alignClass = role === 'user' ? 'self-end' : 'self-start';
+    const colorClass = role === 'user' ? 'chat-bubble-user' : 'chat-bubble-peer';
+
+    bubble.className = `chat-bubble ${alignClass} ${colorClass}`;
+    bubble.textContent = message;
+
+    // Tambahkan ke jendela chat dan auto-scroll
+    ui.chatWindow.appendChild(bubble);
+    ui.chatWindow.scrollTop = ui.chatWindow.scrollHeight;
+}
+
+// Fungsi untuk mensimulasikan balasan dari rekan
+        function simulatePeerResponse() {
+    const replies = [
+        "Okay, I see your point.",
+        "Can you explain that in more detail?",
+        "That's interesting, but what about the budget?",
+        "I'm not sure I agree with that.",
+        "Alright, what's the next step then?"
+    ];
+    const randomReply = replies[Math.floor(Math.random() * replies.length)];
+    
+    addChatMessage(randomReply, 'peer');
+}
+
+// Fungsi yang dijalankan saat tombol "Send" diklik
+        function handleSendMessage() {
+    const message = ui.chatInput.value.trim();
+    if (!message) return; // Jangan kirim pesan kosong
+
+    // Tampilkan pesan pengguna
+    addChatMessage(message, 'user');
+
+    // Kosongkan input
+    ui.chatInput.value = '';
+    ui.chatInput.focus();
+
+    // Tunggu sesaat lalu tampilkan balasan dari rekan (simulasi)
+    setTimeout(simulatePeerResponse, 1500);
+}
+
+// Anda mungkin juga belum punya fungsi ini, tambahkan juga
+    let currentRolePlay = {}; 
+
+     function renderRolePlayTurn(turn) {
+    if (!turn) return;
+
+    const customerBubble = document.createElement('div');
+    customerBubble.className = 'rpg-bubble rpg-bubble-customer';
+    customerBubble.innerHTML = `<p>${turn.prompt}</p>`;
+    ui.rpgInteractionWindow.appendChild(customerBubble);
+
+    ui.rpgOptionsContainer.innerHTML = turn.options.map(opt => 
+        `<button class="rpg-option-btn" onclick='handleRolePlayChoice(${JSON.stringify(opt)})'>${opt.text}</button>`
+    ).join('');
+    
+    ui.rpgInteractionWindow.scrollTop = ui.rpgInteractionWindow.scrollHeight;
+}
+    // TAMBAHKAN FUNGSI INI
+    function handleRolePlayChoice(option) {
+    // Tampilkan jawaban yang dipilih user
+    const userBubble = document.createElement('div');
+    userBubble.className = 'rpg-bubble rpg-bubble-user-preview';
+    userBubble.innerHTML = `<p>${option.text}</p>`;
+    document.getElementById('rpg-interaction-window').appendChild(userBubble);
+    
+    // Matikan semua tombol opsi
+    document.getElementById('rpg-options-container').querySelectorAll('button').forEach(btn => btn.disabled = true);
+    
+    // Auto-scroll ke bawah
+    document.getElementById('rpg-interaction-window').scrollTop = document.getElementById('rpg-interaction-window').scrollHeight;
+
+    if (option.next === "end") {
+        setTimeout(completeRolePlaySession, 1500);
+    } else {
+        const nextTurn = currentRolePlay.script[option.next];
+        currentRolePlay.currentTurn = option.next;
+        // Jeda sesaat sebelum customer merespon
+        setTimeout(() => renderRolePlayTurn(nextTurn), 1500);
+    }
+}
         function openCaseLibrary() {
             selectedCaseId = null;
             renderCaseLibrary();
@@ -1344,9 +1588,47 @@ function calculateTimeSpentToday(employee) {
             }
         }
 
+                // FUNGSI BARU UNTUK MENYELESAIKAN SESI ROLE-PLAY
+        // GANTI FUNGSI LAMA ANDA DENGAN VERSI BARU INI
+        function completeRolePlaySession() {
+    const progress = state.currentUser.rolePlayProgress[currentGateId];
+    if (!progress) return; 
+
+    // BARIS PENTING: Menambahkan catatan bahwa satu sesi telah selesai
+    progress.push({ role: 'Sales', completedAt: new Date().toISOString() });
+    console.log("--- DATA SETELAH DISIMPAN ---", JSON.parse(JSON.stringify(state.currentUser.rolePlayProgress)));
+
+    // Cek jika semua sesi untuk gerbang (gate) ini sudah selesai
+    if (progress.length >= 3) {
+        const { module } = findModule(currentGateId);
+        const isAlreadyCompleted = state.currentUser.completionData.some(d => d.moduleId === currentGateId);
+
+        if (module && !isAlreadyCompleted) {
+            state.currentUser.xp += module.xp;
+            state.currentUser.completionData.push({ moduleId: currentGateId, completedAt: new Date().toISOString() });
+            alert(`Congratulations! You have cleared the "${module.title}" challenge and earned ${module.xp} XP!`);
+        } else {
+            alert('Great job reviewing this challenge!');
+        }
+    } else {
+        alert(`Session ${progress.length} of 3 complete! Return to the Learning Path and start the next session.`);
+    }
+
+    closeModal(ui.rolePlayRubricModal);
+    
+    // Kembali ke Learning Path untuk melihat progress baru
+    showLmsView(ui.learningPathView);
+}
+
         document.addEventListener('DOMContentLoaded', () => {
             Object.assign(ui, {
                 moduleDetailView: document.getElementById('module-detail-view'),
+                rolePlaySessionModal: document.getElementById('role-play-session-modal'),
+             rpgSessionTitle: document.getElementById('rpg-session-title'),
+            rpgSessionRole: document.getElementById('rpg-session-role'),
+            rpgInteractionWindow: document.getElementById('rpg-interaction-window'),
+            rpgOptionsContainer: document.getElementById('rpg-options-container'),
+                rolePlayPairingModal: document.getElementById('role-play-pairing-modal'),
                 mainSidebar: document.getElementById('main-sidebar'),
         backToPathBtn: document.getElementById('back-to-path-btn'),
         moduleDetailTitle: document.getElementById('module-detail-title'),
@@ -1403,6 +1685,21 @@ addNoteModal: document.getElementById('add-note-modal'),
                 aiSimulatorModal: document.getElementById('ai-simulator-modal'),
                 aiPracticeBtn: document.getElementById('ai-practice-btn'),
                 startRpgSessionBtn: document.getElementById('start-rpg-session-btn'),
+                rolePlayBriefingModal: document.getElementById('role-play-briefing-modal'),
+                // Di dalam document.addEventListener('DOMContentLoaded', ...) -> Object.assign(ui, { ... })
+
+                // Di dalam Object.assign(ui, { ... })
+                viewBriefingModal: document.getElementById('view-briefing-modal'),
+                viewBriefingBtn: document.getElementById('view-briefing-btn'),
+                inSessionObjective: document.getElementById('in-session-objective'),
+                inSessionProblem: document.getElementById('in-session-problem'),
+                rolePlayChatModal: document.getElementById('role-play-chat-modal'),
+                chatWithTitle: document.getElementById('chat-with-title'),
+                endRolePlayBtn: document.getElementById('end-role-play-btn'),
+                chatWindow: document.getElementById('chat-window'),
+                chatInput: document.getElementById('chat-input'),
+                chatSendBtn: document.getElementById('chat-send-btn'),
+                beginRolePlayBtn: document.getElementById('begin-role-play-btn'),
                 noteForm: document.getElementById('note-form'),
                 noteInput: document.getElementById('note-input'),
                 notesContainer: document.getElementById('notes-container'),
@@ -1432,8 +1729,10 @@ addNoteModal: document.getElementById('add-note-modal'),
                 finishLessonBtn: document.getElementById('finish-lesson-btn'),
                 retryLessonBtn: document.getElementById('retry-lesson-btn'),
                 logoutBtn: document.getElementById('logout-btn'),
-
+                // Di dalam Object.assign(ui, { ... })
+                rolePlayRubricModal: document.getElementById('role-play-rubric-modal'),
                 backToPathBtnDetail: document.getElementById('back-to-path-btn-detail'),
+                submitReviewBtn: document.getElementById('submit-review-btn'),
     moduleSidebarTitle: document.getElementById('module-sidebar-title'),
     moduleProgressBar: document.getElementById('module-progress-bar'),
     moduleProgressText: document.getElementById('module-progress-text'),
@@ -1445,6 +1744,19 @@ addNoteModal: document.getElementById('add-note-modal'),
             });
 
             ui.goToLoginBtn.addEventListener('click', () => showPage(ui.loginPage));
+            // Di dalam document.addEventListener('DOMContentLoaded', ...)
+            ui.beginRolePlayBtn.addEventListener('click', () => {
+    // Tutup modal briefing
+    closeModal(ui.rolePlayBriefingModal);
+
+    // Buka modal chat setelah jeda singkat
+    setTimeout(() => {
+        // Di sini kita akan panggil fungsi untuk memulai chat
+        // Untuk sekarang, kita hanya akan membukanya
+        openModal(ui.rolePlayChatModal);
+        document.getElementById('chat-input').focus(); // Langsung fokus ke input
+    }, 300);
+});
             ui.logoutBtn.addEventListener('click', handleLogout);
             ui.navDashboard.addEventListener('click', (e) => { e.preventDefault(); showLmsView(ui.dashboardView); });
             ui.navPath.addEventListener('click', (e) => { e.preventDefault(); showLmsView(ui.learningPathView); });
@@ -1452,6 +1764,49 @@ addNoteModal: document.getElementById('add-note-modal'),
             ui.navPeer.addEventListener('click', (e) => { e.preventDefault(); showLmsView(ui.peerLearningView); });
             ui.loginAsEmployeeBtn.addEventListener('click', () => handleLogin('emp01'));
             ui.loginAsManagerBtn.addEventListener('click', () => handleLogin('mgr01'));
+
+            ui.chatSendBtn.addEventListener('click', handleSendMessage);
+            ui.chatInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+        handleSendMessage();
+    }
+});
+
+// Listener untuk tombol End Session (untuk sekarang hanya menutup modal)
+            // GANTI event listener lama untuk endRolePlayBtn dengan ini
+        ui.endRolePlayBtn.addEventListener('click', () => {
+    if (confirm("Are you sure you want to end this session?")) {
+        closeModal(ui.rolePlayChatModal);
+        
+        // Panggil fungsi baru untuk menampilkan rubrik setelah jeda
+        setTimeout(() => {
+            showReviewRubric();
+        }, 300);
+    }
+});
+
+       // GANTI event listener lama untuk submitReviewBtn dengan ini
+    ui.submitReviewBtn.addEventListener('click', () => {
+    // Di masa depan, kita bisa menambahkan logika untuk mengambil nilai dari rubrik di sini.
+    // Untuk sekarang, kita langsung panggil fungsi penyelesaian.
+    completeRolePlaySession();
+});
+
+            // Di dalam document.addEventListener('DOMContentLoaded', ...)
+ui.viewBriefingBtn.addEventListener('click', () => {
+    // Ambil data briefing dari kasus yang sedang berjalan
+    const caseData = state.rolePlayCases[currentGateId];
+    // Untuk mockup, kita asumsikan peran pengguna adalah 'Sales'
+    const briefing = caseData.salesBriefing; 
+
+    // Isi konten modal
+    ui.inSessionObjective.textContent = briefing.objective;
+    ui.inSessionProblem.textContent = briefing.problem;
+
+    // Tampilkan modal
+    openModal(ui.viewBriefingModal);
+});
+
             ui.continueLearningBtn.addEventListener('click', () => showLmsView(ui.learningPathView));
             document.querySelectorAll('.close-modal-btn').forEach(btn => btn.addEventListener('click', (e) => { const modal = e.target.closest('.modal-backdrop'); if(modal) closeModal(modal); }));
             if(ui.leaderboardBtn) ui.leaderboardBtn.addEventListener('click', () => openModal(ui.leaderboardModal));
@@ -1617,3 +1972,28 @@ function renderEmployeeDetail(employee) {
     `;
     feather.replace();
 }
+
+// FUNGSI BARU UNTUK MENAMPILKAN RUBRIK
+function showReviewRubric() {
+    const caseData = state.rolePlayCases[currentGateId];
+    const rubricContainer = document.getElementById('rubric-container');
+    
+    // Bangun HTML untuk setiap kriteria
+    rubricContainer.innerHTML = caseData.reviewRubric.map(item => `
+        <div>
+            <label class="font-bold text-slate-700">${item.criterion}</label>
+            <p class="text-sm text-slate-500 mb-2">${item.description}</p>
+            <div class="flex justify-around bg-slate-100 p-2 rounded-lg">
+                ${[1, 2, 3, 4, 5].map(score => `
+                    <label class="flex flex-col items-center cursor-pointer">
+                        <input type="radio" name="rubric_${item.id}" value="${score}" class="accent-sky-500">
+                        <span class="text-sm mt-1">${score}</span>
+                    </label>
+                `).join('')}
+            </div>
+        </div>
+    `).join('');
+
+    openModal(ui.rolePlayRubricModal);
+}
+

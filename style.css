@@ -400,3 +400,35 @@
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
 }
 
+/* CSS untuk Animasi Teks di Pairing Modal */
+.fade-in-out {
+    animation: fadeInOut 2.5s ease-in-out infinite;
+}
+
+@keyframes fadeInOut {
+    0%, 100% { opacity: 0; transform: translateY(10px); }
+    50% { opacity: 1; transform: translateY(0); }
+}
+
+
+/* --- Style untuk Chat Bubble di Role Play --- */
+.chat-bubble {
+    max-width: 75%;
+    padding: 0.75rem 1rem;
+    border-radius: 1rem;
+    line-height: 1.5;
+}
+
+/* Bubble untuk pengguna (Anda) */
+.chat-bubble-user {
+    background-color: var(--brand-blue);
+    color: white;
+    border-bottom-right-radius: 0.25rem;
+}
+
+/* Bubble untuk rekan (Customer/AI) */
+.chat-bubble-peer {
+    background-color: #e2e8f0; /* slate-200 */
+    color: var(--dark-slate);
+    border-bottom-left-radius: 0.25rem;
+}

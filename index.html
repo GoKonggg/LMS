@@ -448,6 +448,153 @@
             </button>
         </div>
     </div>
+
+    <div id="role-play-pairing-modal" class="fixed inset-0 bg-slate-900 bg-opacity-95 flex flex-col items-center justify-center p-4 z-50 hidden modal-backdrop opacity-0">
+    
+    <div class="w-full max-w-md text-center">
+        <div class="flex justify-center items-center gap-8 mb-8 relative">
+            <img src="https://placehold.co/100x100/E0F2FE/00539F?text=AR" alt="Your Avatar" class="rounded-full border-4 border-white shadow-lg">
+            
+            <div id="pairing-spinner" class="text-white">
+                <i data-feather="link" class="w-10 h-10 animate-pulse"></i>
+            </div>
+
+            <div id="peer-avatar-placeholder" class="w-24 h-24 bg-slate-700 rounded-full border-4 border-slate-500 flex items-center justify-center shadow-lg">
+                <i data-feather="user" class="w-10 h-10 text-slate-400"></i>
+            </div>
+            <img id="peer-avatar-result" src="" alt="Peer Avatar" class="hidden rounded-full border-4 border-green-400 shadow-lg w-24 h-24">
+        </div>
+
+        <div id="pairing-status-text" class="text-xl font-semibold text-white h-8">
+            </div>
+
+    </div>
+
+    <div id="case-card-reveal" class="w-full max-w-md bg-white p-6 rounded-2xl shadow-2xl mt-8 text-center opacity-0 transform scale-95" style="transition: all 0.5s ease;">
+        <p class="text-sm font-semibold text-sky-600">Case Assigned</p>
+        <h3 id="case-title-reveal" class="text-2xl font-bold text-slate-800 mt-2"></h3>
+        <p class="mt-4">
+            You will be playing the role of: <strong id="case-role-reveal" class="text-xl"></strong>
+        </p>
+        <p class="mt-6 text-sm text-slate-500">Preparing session...</p>
+    </div>
+
+</div>
+<div id="role-play-session-modal" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4 z-50 hidden modal-backdrop opacity-0">
+    <div class="bg-slate-100 rounded-2xl shadow-2xl w-full max-w-2xl modal-content transform scale-95 flex flex-col h-[85vh] overflow-hidden">
+        
+        <div class="flex-shrink-0 p-6 border-b bg-white flex justify-between items-start">
+            <div>
+                <h2 id="rpg-session-title" class="text-2xl font-bold text-slate-800">Scenario Title</h2>
+                <p id="rpg-session-role" class="font-semibold" style="color: var(--brand-blue);"></p>
+            </div>
+            <button class="close-modal-btn text-slate-400 hover:text-slate-600"><i data-feather="x" class="w-6 h-6"></i></button>
+        </div>
+
+        <div id="rpg-interaction-window" class="flex-grow p-8 space-y-6 overflow-y-auto">
+            </div>
+        
+        <div class="flex-shrink-0 p-6 bg-white border-t">
+            <p class="text-sm font-semibold text-slate-600 mb-3">Pilih respon Anda:</p>
+            <div id="rpg-options-container" class="space-y-3">
+                </div>
+        </div>
+
+    </div>
+</div>
+
+<div id="role-play-briefing-modal" class="fixed inset-0 bg-slate-900 bg-opacity-95 flex items-center justify-center p-4 z-50 hidden modal-backdrop opacity-0">
+    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg modal-content transform scale-95 p-8">
+        <p class="text-sm font-bold text-sky-600">Your Role Briefing</p>
+        <h2 class="text-3xl font-bold text-slate-800 mt-2">You are the: <span id="briefing-role" class="text-blue-600"></span></h2>
+        
+        <div class="mt-6 border-t pt-6">
+            <div class="mb-4">
+                <h3 class="font-bold text-lg text-slate-700">🎯 Your Objective</h3>
+                <p id="briefing-objective" class="text-slate-600 mt-1"></p>
+            </div>
+            <div>
+                <h3 class="font-bold text-lg text-slate-700">❗ Problem to Solve</h3>
+                <p id="briefing-problem" class="text-slate-600 mt-1"></p>
+            </div>
+        </div>
+
+        <button id="begin-role-play-btn" class="w-full mt-8 text-white font-bold py-4 rounded-xl text-lg transition transform hover:scale-105" style="background-color: var(--healthy-green);">
+            Begin Session
+        </button>
+    </div>
+</div>
+
+
+<div id="role-play-chat-modal" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4 z-50 hidden modal-backdrop opacity-0">
+    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-2xl modal-content transform scale-95 flex flex-col h-[85vh] overflow-hidden">
+        
+        <div class="flex-shrink-0 p-4 border-b bg-slate-50 flex justify-between items-center">
+    <div>
+        <p class="text-sm text-slate-500">Role-Play Session</p>
+        <h2 id="chat-with-title" class="text-lg font-bold text-slate-800">Chat with Customer</h2>
+    </div>
+    <div class="flex items-center gap-2">
+        <button id="view-briefing-btn" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-semibold py-2 px-4 rounded-lg text-sm flex items-center gap-2">
+            <i data-feather="book-open" class="w-4 h-4"></i>
+            <span>View Briefing</span>
+        </button>
+        <button id="end-role-play-btn" class="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-lg text-sm">
+    End Session
+</button>
+    </div>
+</div>
+
+        <div id="chat-window" class="flex-grow p-6 space-y-6 overflow-y-auto bg-slate-100">
+            </div>
+        
+        <div class="flex-shrink-0 p-4 bg-white border-t flex gap-2">
+            <input type="text" id="chat-input" placeholder="Type your response..." class="w-full p-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:outline-none">
+            <button id="chat-send-btn" class="text-white p-3 rounded-lg hover:opacity-90" style="background-color: var(--brand-blue);">
+                <i data-feather="send" class="w-6 h-6"></i>
+            </button>
+        </div>
+    </div>
+</div>
+
+<div id="role-play-rubric-modal" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4 z-50 hidden modal-backdrop opacity-0">
+    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-2xl modal-content transform scale-95 flex flex-col overflow-hidden">
+        
+        <div class="flex-shrink-0 p-6 border-b bg-slate-50">
+            <h2 class="text-2xl font-bold text-slate-800">Session Review</h2>
+            <p class="text-slate-500 mt-1">Provide feedback for your peer based on the following criteria.</p>
+        </div>
+
+        <div id="rubric-container" class="flex-grow p-8 space-y-6 overflow-y-auto">
+            </div>
+        
+        <div class="flex-shrink-0 p-6 bg-white border-t text-right">
+            <button id="submit-review-btn" class="text-white font-bold py-3 px-8 rounded-xl text-lg transition transform hover:scale-105" style="background-color: var(--brand-blue);">
+                Submit Feedback
+            </button>
+        </div>
+    </div>
+</div>
+
+<div id="view-briefing-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50 hidden modal-backdrop opacity-0">
+    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg p-6 modal-content transform scale-95">
+        <div class="flex justify-between items-center mb-4">
+            <h2 class="text-2xl font-bold flex items-center gap-2"><i data-feather="book-open" class="text-sky-500"></i> Your Role Briefing</h2>
+            <button class="close-modal-btn text-slate-400 hover:text-slate-600"><i data-feather="x" class="w-6 h-6"></i></button>
+        </div>
+        <div class="space-y-4">
+            <div>
+                <h3 class="font-semibold text-slate-700">🎯 Objective</h3>
+                <p id="in-session-objective" class="text-slate-600"></p>
+            </div>
+            <div>
+                <h3 class="font-semibold text-slate-700">❗ Problem to Solve</h3>
+                <p id="in-session-problem" class="text-slate-600"></p>
+            </div>
+        </div>
+    </div>
+</div>
+
     <div id="case-library-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50 hidden modal-backdrop opacity-0">
         <div class="bg-white rounded-2xl shadow-2xl w-full max-w-4xl p-8 modal-content transform scale-95 flex flex-col h-[90vh]">
              <div class="flex justify-between items-start flex-shrink-0">
