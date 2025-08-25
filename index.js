@@ -103,12 +103,13 @@ moduleContent: {
             { 
                 type: 'video', 
                 title: 'Introduction to Growth Mindset', 
-                duration: 90,
+                duration: 129,
+                videoSrc: 'ASSET/Growth_Mindset.mp4',
                 popupQuiz: {
                     question: 'What is the core belief of a growth mindset?',
                     options: ['Talent is everything', 'Abilities can be developed', 'Avoid failure at all costs'],
                     correctAnswer: 1,
-                    triggerAt : 25
+                    triggerAt : 60
                 }
             },
             { 
@@ -647,19 +648,14 @@ function displayModuleContent(moduleId, itemIndex) {
 
     // Render konten (video interaktif atau artikel)
     if (item.type === 'video') {
-        ui.contentArea.innerHTML = `
-            <div class="video-placeholder" id="video-placeholder">
-                <i data-feather="play-circle" class="play-button w-24 h-24 text-white/80" onclick="playVideo()"></i>
-                <div class="video-controls">
-                    <div class="progress-bar-container">
-                        <div id="video-progress-bar"></div>
-                        <div id="note-markers-container"></div>
-                    </div>
-                </div>
-            </div>
-        `;
-        renderNoteMarkers(moduleId, itemIndex);
-    } else {
+    // Gunakan tag <video> HTML5 dan ambil src dari data item
+    ui.contentArea.innerHTML = `
+        <video controls class="w-full aspect-video bg-slate-800 rounded-lg" src="${item.videoSrc}">
+            Browser Anda tidak mendukung tag video.
+        </video>
+    `;
+    // renderNoteMarkers(moduleId, itemIndex); // Anda bisa non-aktifkan ini dulu jika belum perlu
+} else {
         ui.contentArea.innerHTML = item.content || '<p>Artikel belum tersedia.</p>';
     }
     feather.replace();
@@ -667,8 +663,7 @@ function displayModuleContent(moduleId, itemIndex) {
     // Setup note section di bawahnya
     setupNoteTakingSection(item);
     
-    // Setup tombol Next
-    // ... (Logika tombol next sama seperti sebelumnya)
+    
 }
 
 function setupNoteTakingSection(item) {
