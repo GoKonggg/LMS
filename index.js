@@ -418,7 +418,7 @@ peerRolePlaySessions: [],
     document.querySelector('aside .text-sm.text-slate-500').textContent = user.division;
     document.querySelector('aside p#xp-text').textContent = `${user.xp} / ${user.levelXP} XP`;
     document.querySelector('#xp-bar').style.width = `${(user.xp / user.levelXP) * 100}%`;
-    document.querySelector('aside img').src = `https://placehold.co/100x100/E0F2FE/00539F?text=${user.avatar}`;
+    document.querySelector('#sidebar-user-avatar').src = `https://placehold.co/100x100/E0F2FE/00539F?text=${user.avatar}`;
 
 
     // Update Header profile
