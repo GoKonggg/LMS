@@ -1613,7 +1613,7 @@ function renderEmployeeView() {
     document.querySelector('aside .text-sm.text-slate-500').textContent = user.division;
     document.querySelector('aside p#xp-text').textContent = "Manager Account";
     document.querySelector('#xp-bar').style.width = `100%`;
-    document.querySelector('aside img').src = `https://placehold.co/100x100/334155/FFFFFF?text=${user.avatar}`;
+    //document.querySelector('aside img').src = `https://placehold.co/100x100/334155/FFFFFF?text=${user.avatar}`;
     sidebarNav.innerHTML = `
         <a href="#" id="nav-manager-dashboard" class="sidebar-link active flex items-center gap-3 px-4 py-3 rounded-lg">
             <i data-feather="trello"></i> Team Dashboard
