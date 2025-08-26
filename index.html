@@ -390,6 +390,22 @@
 
 
     <!-- Modals -->
+
+    <div id="notification-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50 hidden modal-backdrop opacity-0">
+    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-sm p-8 text-center modal-content transform scale-95">
+        
+        <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-sky-100 mb-5">
+            <i data-feather="info" class="h-8 w-8 text-sky-600"></i>
+        </div>
+        
+        <h3 id="notification-title" class="text-2xl font-bold text-slate-800">Judul Notifikasi</h3>
+        <p id="notification-message" class="text-slate-600 mt-2">Pesan notifikasi akan muncul di sini.</p>
+        
+        <button id="notification-ok-btn" style="background-color: var(--brand-blue);" class="w-full mt-8 hover:opacity-90 text-white font-bold py-3 px-6 rounded-lg text-lg">
+            OK
+        </button>
+    </div>
+</div>
     <div id="leaderboard-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50 hidden modal-backdrop opacity-0">
         <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md p-6 modal-content transform scale-95">
             <div class="flex justify-between items-center mb-4">

@@ -532,46 +532,53 @@ peerRolePlaySessions: [],
     const completedModuleIds = state.currentUser.completionData.map(data => data.moduleId);
 
     ui.learningPath.innerHTML = state.learningPath.map(stage => {
-        const modulesHTML = stage.modules.map(mod => {
-            // -- LOGIKA BARU DI BAWAH INI --
-            const isCompleted = completedModuleIds.includes(mod.id);
-            const isUnlocked = isModuleUnlocked(mod.id);
-            
-            let statusClass = 'locked';
-            if (isCompleted) statusClass = 'completed';
-            else if (isUnlocked) statusClass = 'unlocked';
-            
-            const handler = isUnlocked 
-                ? (mod.isRolePlayGate ? `openRolePlayGate('${mod.id}')` : `openModule('${mod.id}')`) 
-                : '';
+        // ... (di dalam ui.learningPath.innerHTML = state.learningPath.map(stage => { ... }))
+    const modulesHTML = stage.modules.map(mod => {
+        // --- PERUBAHAN DIMULAI DI SINI ---
 
-            const actionText = isCompleted ? 'Review' : (mod.type === 'challenge' ? 'Start Challenge' : 'Start Module');
-            const icon = isUnlocked ? 'play-circle' : 'lock';
+        // 1. Definisikan ID modul yang aktif untuk demo
+        const isCompleted = completedModuleIds.includes(mod.id);
+const isUnlocked = isModuleUnlocked(mod.id);
 
-            return `
-                <div id="${mod.id}" class="module-card ${statusClass}" ${handler ? `onclick="${handler}"` : 'style="cursor: not-allowed;"'}>
-                    <div class="module-card-content">
-                        <div>
-                            <p class="module-card-header">${mod.type === 'challenge' ? 'Challenge' : 'Module'}</p>
-                            <h3 class="module-card-title">${mod.title}</h3>
-                        </div>
-                        <div class="module-card-meta">
-                            <span><i data-feather="clock" class="w-4 h-4"></i>${mod.durationInMinutes} Minute</span>
-                        </div>
-                        <div class="module-card-footer">
-                            <div class="module-card-action">
-                                <i data-feather="${icon}" class="w-5 h-5"></i>
-                                <span>${isUnlocked ? actionText : 'Locked'}</span>
-                            </div>
-                        </div>
+let statusClass = 'locked';
+if (isCompleted) statusClass = 'completed';
+else if (isUnlocked) statusClass = 'unlocked';
+
+// Handler sekarang hanya memanggil fungsi pusat. Jauh lebih bersih dan aman!
+const handler = isUnlocked ? `handleModuleClick('${mod.id}')` : '';
+        
+        // Jika modul masih locked, 'handler' akan tetap kosong, sehingga tidak bisa diklik.
+
+        // --- PERUBAHAN SELESAI ---
+
+        const actionText = isCompleted ? 'Review' : (mod.type === 'challenge' ? 'Start Challenge' : 'Start Module');
+        const icon = isUnlocked ? 'play-circle' : 'lock';
+
+        return `
+            <div id="${mod.id}" class="module-card ${statusClass}" ${handler ? `onclick="${handler}"` : 'style="cursor: not-allowed;"'}>
+                <div class="module-card-content">
+                    <div>
+                        <p class="module-card-header">${mod.type === 'challenge' ? 'Challenge' : 'Module'}</p>
+                        <h3 class="module-card-title">${mod.title}</h3>
                     </div>
-                    <div class="module-card-aside">
-                        <img src="${mod.badge}" alt="Badge">
-                        <span>${mod.xp} XP</span>
+                    <div class="module-card-meta">
+                        <span><i data-feather="clock" class="w-4 h-4"></i>${mod.durationInMinutes ? mod.durationInMinutes + ' Minute' : mod.duration}</span>
+                    </div>
+                    <div class="module-card-footer">
+                        <div class="module-card-action">
+                            <i data-feather="${icon}" class="w-5 h-5"></i>
+                            <span>${isUnlocked ? actionText : 'Locked'}</span>
+                        </div>
                     </div>
                 </div>
-            `;
-        }).join('');
+                <div class="module-card-aside">
+                    <img src="${mod.badge}" alt="Badge">
+                    <span>${mod.xp} XP</span>
+                </div>
+            </div>
+        `;
+    }).join('');
+// ...
 
         return `
             <div class="stage-container mb-12">
@@ -773,7 +780,32 @@ function setupNoteTakingSection(item) {
     ui.contentArea.insertAdjacentElement('afterend', noteSection);
     feather.replace();
 }
+function handleModuleClick(moduleId) {
+    // Definisikan modul yang aktif di sini
+    const activeModuleIds = ['m1-1', 'c1'];
+    
+    // Cari data modul dari state
+    const { module } = findModule(moduleId);
+    if (!module) return; // Jika modul tidak ditemukan, hentikan
 
+    // Cek apakah modul yang diklik termasuk modul yang fungsional
+    if (activeModuleIds.includes(moduleId)) {
+        // --- JIKA FUNGSIONAL ---
+        // Jalankan fungsi asli sesuai tipenya
+        if (module.isRolePlayGate) {
+            openRolePlayGate(moduleId);
+        } else {
+            openModule(moduleId);
+        }
+    } else {
+        // --- JIKA HANYA DEMO ---
+        // Tampilkan notifikasi modal yang sudah kita buat
+        showNotification('Module in Development', 
+            '<p class="mb-4">This module is not yet available.</p>' + 
+            '<p class="font-semibold" style="color: var(--incorrect-red);">Please try The Growth Mindset module or the Stage 1 Final Test module for demo testing.</p>'
+        );
+    }
+}
 // GANTI TOTAL FUNGSI handleSaveLessonNote DENGAN VERSI FINAL INI
     // GANTI FUNGSI handleSaveLessonNote LAMA DENGAN INI
     function handleSaveLessonNote() {
@@ -1858,6 +1890,8 @@ addNoteModal: document.getElementById('add-note-modal'),
                 nextModuleTitle: document.getElementById('next-module-title'),
                 xpBar: document.getElementById('xp-bar'),
                 xpText: document.getElementById('xp-text'),
+                notificationModal: document.getElementById('notification-modal'),
+                notificationOkBtn: document.getElementById('notification-ok-btn'),
                 leaderboardModal: document.getElementById('leaderboard-modal'),
                 leaderboardBtn: document.getElementById('leaderboard-btn'),
                 leaderboard: document.getElementById('leaderboard'),
@@ -2028,6 +2062,10 @@ ui.viewBriefingBtn.addEventListener('click', () => {
             // BUG FIX: Removed redundant event listener. The .onclick is set in resetButtons()
             // if(ui.lessonCheckBtn) ui.lessonCheckBtn.addEventListener('click', checkAnswer);
             if(ui.backToPathBtnDetail) ui.backToPathBtnDetail.addEventListener('click', () => showLmsView(ui.learningPathView));
+            if(ui.notificationOkBtn) {
+    ui.notificationOkBtn.addEventListener('click', () => closeModal(ui.notificationModal));
+}
+
             if(ui.lessonNoteForm) ui.lessonNoteForm.addEventListener('submit', (e) => {
     e.preventDefault();
     handleSaveLessonNote();
@@ -2209,3 +2247,13 @@ function showReviewRubric() {
     openModal(ui.rolePlayRubricModal);
 }
 
+function showNotification(title, message) {
+    const titleEl = document.getElementById('notification-title');
+    const messageEl = document.getElementById('notification-message');
+    
+    if (titleEl && messageEl) {
+        titleEl.textContent = title;
+        messageEl.innerHTML = message; // <-- Diubah menjadi innerHTML
+        openModal(ui.notificationModal);
+    }
+}
