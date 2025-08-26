@@ -432,3 +432,81 @@
     color: var(--dark-slate);
     border-bottom-left-radius: 0.25rem;
 }
+
+/* --- CSS UNTUK PROGRESS BAR VIDEO KUSTOM --- */
+.custom-video-progress-bar {
+    width: 100%;
+    height: 12px; /* Sedikit lebih tebal agar marker terlihat */
+    background-color: #e2e8f0; /* slate-200 */
+    border-radius: 6px;
+    margin-top: 8px;
+    position: relative; /* Ini adalah kunci utamanya */
+    cursor: pointer;
+}
+
+#video-progress-fill {
+    height: 100%;
+    background-color: var(--brand-blue);
+    border-radius: 6px;
+    width: 0%; /* Dimulai dari 0 */
+}
+
+/* Override style marker yang lama agar lebih pas di bar baru */
+.note-marker {
+    position: absolute;
+    top: -3px; /* Posisi di tengah vertikal bar */
+    transform: translateX(-50%);
+    width: 18px;
+    height: 18px;
+    background-color: #f59e0b; /* amber-500 */
+    border-radius: 50%;
+    border: 3px solid white;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    cursor: pointer;
+    z-index: 10;
+}
+
+
+/* --- CSS BARU UNTUK CUSTOM VIDEO PLAYER --- */
+
+/* Kontainer utama untuk kontrol, muncul saat hover */
+.custom-video-controls {
+    transition: opacity 0.3s ease-in-out;
+}
+
+/* Progress bar utama */
+.custom-video-progress-bar {
+    width: 100%;
+    height: 8px; /* Sedikit lebih tebal agar mudah diklik */
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+    cursor: pointer;
+    position: relative; /* Kunci agar note marker bisa diposisikan */
+}
+
+/* Bagian progress yang terisi */
+#video-progress-fill {
+    height: 100%;
+    background-color: var(--brand-blue);
+    border-radius: 4px;
+    width: 0%;
+    pointer-events: none; /* Agar tidak mengganggu klik pada bar utama */
+}
+
+/* Pastikan note marker berada di lapisan paling atas */
+.note-marker {
+    z-index: 10;
+}
+
+/* --- CSS BARU UNTUK DAFTAR CATATAN DI BAWAH VIDEO --- */
+
+/* Kontainer untuk setiap item catatan */
+.note-item {
+    /* Menggunakan flexbox untuk alignment yang rapi */
+}
+
+/* Tombol timestamp yang bisa diklik */
+.timestamp-btn {
+    flex-shrink: 0; /* Mencegah tombol mengecil */
+    transition: background-color 0.2s ease;
+}

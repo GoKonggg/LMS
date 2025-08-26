@@ -568,82 +568,154 @@ peerRolePlaySessions: [],
         function closeModal(modal) { modal.classList.add('opacity-0'); (modal.querySelector('.modal-content') || modal).classList.add('scale-95'); setTimeout(() => { modal.classList.add('hidden'); }, 300); }
   
         
+    // GANTI TOTAL FUNGSI renderNoteMarkers DENGAN INI
+    function renderNoteMarkers(moduleId, lessonIndex) {
+    // Target kita sekarang adalah progress bar kustom
+    const markersContainer = document.getElementById('custom-progress-bar-container');
+    const videoElement = document.getElementById('current-video-player');
 
-function renderNoteMarkers(moduleId, lessonIndex) {
-    const container = document.getElementById('note-markers-container');
-    container.innerHTML = '';
-    const notesForThisVideo = state.currentUser.notes.filter(note => 
-        note.moduleId === moduleId && note.lessonIndex === lessonIndex
-    );
-    
-    notesForThisVideo.forEach(note => {
+    if (!markersContainer || !videoElement) return;
+
+    // Bersihkan marker lama sebelum menggambar yang baru
+    markersContainer.querySelectorAll('.note-marker').forEach(marker => marker.remove());
+
+    const lessonNotes = state.currentUser.notes.filter(note => note.moduleId === moduleId && note.lessonIndex === lessonIndex);
+    const videoDuration = videoElement.duration;
+
+    if (isNaN(videoDuration) || videoDuration <= 0) return;
+
+    lessonNotes.forEach(note => {
         const marker = document.createElement('div');
         marker.className = 'note-marker';
-        const percent = (note.timestamp / videoSimulator.duration) * 100;
-        marker.style.left = `${percent}%`;
-        marker.onclick = () => alert(`Note at ${formatTime(note.timestamp)}: ${note.text}`);
-        container.appendChild(marker);
+
+        // Perhitungan posisi tetap sama, tapi sekarang DIJAMIN relatif terhadap progress bar
+        const positionPercentage = (note.timestamp / videoDuration) * 100;
+        marker.style.left = `${positionPercentage}%`;
+
+        marker.onclick = () => {
+            alert(`Note at ${formatTime(note.timestamp)}:\n\n${note.text}`);
+            videoElement.currentTime = note.timestamp; // Bonus: Klik marker akan lompat ke waktu video
+        };
+        
+        markersContainer.appendChild(marker);
     });
 }
 
-function formatTime(seconds) {
+// Pastikan fungsi ini ada
+    function formatTime(seconds) {
     const min = Math.floor(seconds / 60).toString().padStart(2, '0');
-    const sec = (seconds % 60).toString().padStart(2, '0');
+    const sec = (Math.floor(seconds % 60)).toString().padStart(2, '0');
     return `${min}:${sec}`;
 }
 
-// GANTI TOTAL FUNGSI displayModuleContent DENGAN VERSI FINAL INI
+// GANTI LAGI FUNGSI displayModuleContent DENGAN VERSI FINAL INI
     function displayModuleContent(moduleId, itemIndex) {
-    // Hentikan interval lama jika masih ada (sebagai pengaman)
-    clearInterval(videoSimulator.interval);
-
     const content = state.moduleContent[moduleId];
     const item = content.lessons[itemIndex];
     if (!item) return;
 
-    // Simpan info modul & lesson yang sedang aktif
     videoSimulator.moduleId = moduleId;
     videoSimulator.lessonIndex = itemIndex;
-
-    // Update UI (judul, deskripsi, sidebar)
     document.querySelectorAll('.toc-item').forEach(el => el.classList.toggle('active', parseInt(el.dataset.index) === itemIndex));
     ui.contentTitle.textContent = item.title;
     ui.contentDescription.textContent = `In this ${item.type}, you'll learn about the key concepts of ${item.title}.`;
 
-    // Render konten (video atau artikel)
     if (item.type === 'video') {
-        // Buat elemen video dengan ID agar mudah diakses
         ui.contentArea.innerHTML = `
-            <video controls class="w-full aspect-video bg-slate-800 rounded-lg" id="current-video-player" src="${item.videoSrc}">
-                Browser Anda tidak mendukung tag video.
-            </video>
+            <div class="relative group bg-slate-800 rounded-lg overflow-hidden">
+                <video class="w-full aspect-video" id="current-video-player" src="${item.videoSrc}"></video>
+                
+                <div class="custom-video-controls absolute inset-0 flex flex-col justify-end p-4 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
+                    <div class="custom-video-progress-bar" id="custom-progress-bar-container">
+                        <div id="video-progress-fill"></div>
+                    </div>
+                    <div class="flex items-center justify-between mt-2">
+                        <div class="flex items-center gap-4">
+                            <button id="custom-play-btn" class="text-white hover:text-sky-300 transition-colors"><i data-feather="play" class="w-6 h-6"></i></button>
+                            <button id="custom-volume-btn" class="text-white hover:text-sky-300 transition-colors"><i data-feather="volume-2" class="w-6 h-6"></i></button>
+                            <span id="custom-time-display" class="text-white text-sm font-mono">00:00 / 00:00</span>
+                        </div>
+                        <button id="custom-fullscreen-btn" class="text-white hover:text-sky-300 transition-colors"><i data-feather="maximize" class="w-6 h-6"></i></button>
+                    </div>
+                </div>
+            </div>
         `;
-        
-        // --- INILAH PENGGANTI SEMUA LOGIKA LAMA ---
-        const videoElement = document.getElementById('current-video-player');
-        let quizHasBeenTriggered = false; // Flag agar kuis hanya muncul sekali per pemutaran
 
-        // Tambahkan event listener yang akan berjalan setiap kali waktu video berubah
+        const videoContainer = ui.contentArea.querySelector('.relative.group');
+        const videoElement = document.getElementById('current-video-player');
+        const playBtn = document.getElementById('custom-play-btn');
+        const volumeBtn = document.getElementById('custom-volume-btn');
+        const fullscreenBtn = document.getElementById('custom-fullscreen-btn');
+        const timeDisplay = document.getElementById('custom-time-display');
+        const progressFill = document.getElementById('video-progress-fill');
+        const progressBarContainer = document.getElementById('custom-progress-bar-container');
+
+        videoElement.addEventListener('loadedmetadata', () => {
+            renderNoteMarkers(moduleId, itemIndex);
+            timeDisplay.textContent = `${formatTime(0)} / ${formatTime(videoElement.duration)}`;
+            renderLessonNotes(moduleId, itemIndex); // <-- TAMBAHKAN BARIS INI
+        });
+        
+        let quizHasBeenTriggered = false;
         videoElement.addEventListener('timeupdate', () => {
+            const progressPercent = (videoElement.currentTime / videoElement.duration) * 100;
+            progressFill.style.width = `${progressPercent}%`;
+            timeDisplay.textContent = `${formatTime(videoElement.currentTime)} / ${formatTime(videoElement.duration)}`;
+
             const currentTime = Math.floor(videoElement.currentTime);
-            const lesson = state.moduleContent[videoSimulator.moduleId].lessons[videoSimulator.lessonIndex];
-            
-            // Cek jika video ini punya kuis, waktunya pas, dan kuis belum pernah muncul
+            const lesson = state.moduleContent[moduleId].lessons[itemIndex];
             if (lesson.popupQuiz && currentTime === lesson.popupQuiz.triggerAt && !quizHasBeenTriggered) {
-                quizHasBeenTriggered = true; // Tandai kuis sudah muncul
-                videoElement.pause(); // Jeda video yang sesungguhnya
-                showPopupQuiz(videoSimulator.moduleId, videoSimulator.lessonIndex); // Tampilkan modal kuis
+                quizHasBeenTriggered = true;
+                videoElement.pause();
+                showPopupQuiz(moduleId, itemIndex);
             }
         });
-        // --- AKHIR DARI LOGIKA PENGGANTI ---
+
+        playBtn.addEventListener('click', () => {
+            if (videoElement.paused) videoElement.play();
+            else videoElement.pause();
+        });
+
+        volumeBtn.addEventListener('click', () => {
+            videoElement.muted = !videoElement.muted;
+        });
+
+        fullscreenBtn.addEventListener('click', () => {
+            if (document.fullscreenElement) document.exitFullscreen();
+            else videoContainer.requestFullscreen();
+        });
+
+        // --- PERBAIKAN DI SINI ---
+        videoElement.addEventListener('play', () => {
+            playBtn.innerHTML = `<i data-feather="pause" class="w-6 h-6"></i>`;
+            feather.replace(); // Tambahkan ini
+        });
+        videoElement.addEventListener('pause', () => {
+            playBtn.innerHTML = `<i data-feather="play" class="w-6 h-6"></i>`;
+            feather.replace(); // Tambahkan ini
+        });
+        
+        // --- DAN JUGA DI SINI ---
+        videoElement.addEventListener('volumechange', () => {
+            volumeBtn.innerHTML = videoElement.muted || videoElement.volume === 0 
+                ? `<i data-feather="volume-x" class="w-6 h-6"></i>` 
+                : `<i data-feather="volume-2" class="w-6 h-6"></i>`;
+            feather.replace(); // Tambahkan ini
+        });
+
+        progressBarContainer.addEventListener('click', (e) => {
+            const rect = progressBarContainer.getBoundingClientRect();
+            const clickPosition = e.clientX - rect.left;
+            const barWidth = progressBarContainer.offsetWidth;
+            const seekTime = (clickPosition / barWidth) * videoElement.duration;
+            videoElement.currentTime = seekTime;
+        });
 
     } else {
-        // Jika bukan video, tampilkan sebagai artikel
         ui.contentArea.innerHTML = item.content || '<p>Artikel belum tersedia.</p>';
     }
-    feather.replace();
     
-    // Setup bagian untuk mencatat (tidak berubah)
+    feather.replace();
     setupNoteTakingSection(item);
 }
 
@@ -667,28 +739,32 @@ function setupNoteTakingSection(item) {
     feather.replace();
 }
 
-function handleSaveLessonNote() {
+// GANTI TOTAL FUNGSI handleSaveLessonNote DENGAN VERSI FINAL INI
+    // GANTI FUNGSI handleSaveLessonNote LAMA DENGAN INI
+    function handleSaveLessonNote() {
     const noteInput = document.getElementById('inline-note-input');
     const noteText = noteInput.value.trim();
-    
-    if (noteText) {
+    const videoElement = document.getElementById('current-video-player');
+
+    if (noteText && videoElement) {
+        const currentTime = videoElement.currentTime;
         const newNote = {
             source: state.moduleContent[videoSimulator.moduleId].lessons[videoSimulator.lessonIndex].title,
             text: noteText,
             moduleId: videoSimulator.moduleId,
             lessonIndex: videoSimulator.lessonIndex,
-            timestamp: videoSimulator.currentTime // Simpan waktu saat ini
+            timestamp: currentTime
         };
-        state.user.notes.unshift(newNote);
+
+        state.currentUser.notes.unshift(newNote);
         noteInput.value = '';
         alert('Note saved!');
         noteInput.parentElement.classList.add('hidden');
         
-        // Render ulang marker di progress bar
         renderNoteMarkers(videoSimulator.moduleId, videoSimulator.lessonIndex);
+        renderLessonNotes(videoSimulator.moduleId, videoSimulator.lessonIndex); // <-- TAMBAHKAN BARIS INI
     }
 }
-
 
 // GANTI FUNGSI renderModuleDetail YANG LAMA DENGAN INI
 function renderModuleDetail(moduleId) {
@@ -1259,8 +1335,57 @@ const completedCount = progress ? progress.length : 0;
             }, 1200);
         }
 
-        // --- KUMPULAN FUNGSI BARU ---
+        // TAMBAHKAN FUNGSI BARU INI
+    // GANTI KESELURUHAN FUNGSI renderLessonNotes DENGAN INI
+function renderLessonNotes(moduleId, lessonIndex) {
+    let notesListContainer = document.getElementById('lesson-notes-list-container');
+    if (!notesListContainer) {
+        notesListContainer = document.createElement('div');
+        notesListContainer.id = 'lesson-notes-list-container';
+        notesListContainer.className = 'mt-6 space-y-4';
+        
+        const noteTakingSection = document.getElementById('note-taking-section');
+        if (noteTakingSection) {
+            noteTakingSection.insertAdjacentElement('afterend', notesListContainer);
+        }
+    }
 
+    const lessonNotes = state.currentUser.notes.filter(note => 
+        note.moduleId === moduleId && note.lessonIndex === lessonIndex
+    ).sort((a, b) => a.timestamp - b.timestamp);
+
+    if (lessonNotes.length > 0) {
+        notesListContainer.innerHTML = lessonNotes.map(note => `
+            <div class="note-item flex items-start gap-4">
+                <button class="timestamp-btn font-mono text-sm font-semibold text-sky-600 hover:text-sky-800 bg-sky-100 px-2 py-1 rounded-md mt-1" onclick="seekVideoTo(${note.timestamp})">
+                    ${formatTime(note.timestamp)}
+                </button>
+                <div class="flex-grow bg-white p-4 rounded-lg shadow-sm border">
+                    
+                    <p class="text-xs text-slate-500 font-semibold mb-2">
+                        <i data-feather="file-text" class="inline-block w-3 h-3 -mt-px mr-1"></i>
+                        ${note.source} 
+                    </p>
+                    <p class="text-slate-800">${note.text}</p>
+                </div>
+            </div>
+        `).join('');
+    } else {
+        notesListContainer.innerHTML = '';
+    }
+
+    // PENTING: Tambahkan ini agar ikon baru (file-text) bisa dirender
+    feather.replace();
+}
+
+// TAMBAHKAN FUNGSI KECIL INI JUGA
+    function seekVideoTo(time) {
+    const videoElement = document.getElementById('current-video-player');
+    if (videoElement) {
+        videoElement.currentTime = time;
+        videoElement.play();
+    }
+}
         
 
         // GANTI FUNGSI renderEmployeeView LAMA ANDA DENGAN VERSI INI
