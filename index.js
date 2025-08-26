@@ -129,19 +129,51 @@ moduleContent: {
                 duration: '9 min',
                 content: `
         <div class="prose max-w-none p-8 bg-white rounded-lg">
-            <h2>Memahami Kebutuhan Klien, Bukan Menjual Produk</h2>
-            <p>Dalam studi kasus ini, kita akan melihat bagaimana seorang sales representatif bernama Sarah mengubah pendekatannya dari "fixed mindset" menjadi "growth mindset". Awalnya, Sarah selalu menyalahkan faktor eksternal ketika gagal mencapai target.</p>
-            
-            <h3>Tantangan Awal:</h3>
-            <ul>
-                <li>Klien menolak karena harga dianggap terlalu mahal.</li>
-                <li>Produk dianggap kurang fitur dibandingkan kompetitor.</li>
-                <li>Sarah merasa kemampuannya sudah maksimal dan tidak bisa berkembang lagi.</li>
-            </ul>
+    
+<h1 style="font-size: 2.5em; color: #1a1a1a; margin-bottom: 0; line-height: 1.2;">From "It's Too Expensive" to "Tell Me More"</h1>
+    
+    <h4 style="font-size: 1.2em; color: #666666; margin-top: 5px; font-weight: normal; border-bottom: 1px solid #eeeeee; padding-bottom: 20px; margin-bottom: 30px;">A Sales Rep's Journey to a Growth Mindset</h4>
+    
+    <p style="font-size: 1.1em;">This case study explores the journey of Sarah, a sales representative, as she transitions from a "fixed mindset" to a "growth mindset," fundamentally changing her approach to sales and achieving remarkable professional results.</p>
+    
+    <h3 style="font-size: 1.8em; color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px; margin-top: 40px;">Hitting the Wall: The "Fixed Mindset" Barrier</h3>
+    
+    <p>In her early stages, Sarah's performance plateaued. She believed her abilities were fixed and that failure was a final verdict on her skills. This led to three primary obstacles:</p>
+    
+    <ul style="padding-left: 20px;">
+        <li style="margin-bottom: 15px;"><strong>Price Objections:</strong> She accepted a client's "it's too expensive" at face value, assuming the product was simply overpriced for the market.</li>
+        <li style="margin-bottom: 15px;"><strong>Perceived Feature Gaps:</strong> She saw the product's lack of certain competitor features as a product development failure, not a sales challenge to overcome.</li>
+        <li style="margin-bottom: 15px;"><strong>The Talent Ceiling:</strong> She felt she had reached her maximum potential, believing that great salespeople are born, not made.</li>
+    </ul>
 
-            <h3>Perubahan Pendekatan dengan Growth Mindset:</h3>
-            <p>Setelah mengikuti pelatihan, Sarah mulai melihat setiap penolakan sebagai kesempatan belajar. Ia mulai bertanya "mengapa" kepada klien, bukan hanya menerima penolakan. Ini membantunya memahami bahwa masalah sebenarnya bukan harga, melainkan nilai (value) yang belum tersampaikan.</p>
-        </div>
+    <h3 style="font-size: 1.8em; color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px; margin-top: 40px;">The Turning Point: Discovering a New Perspective</h3>
+    
+    <p>A professional development workshop introduced Sarah to the idea that skills can be developed through dedication and effort. She began to see challenges not as roadblocks, but as opportunities for growth, and viewed rejection as valuable feedback.</p>
+
+    <h3 style="font-size: 1.8em; color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px; margin-top: 40px;">From Selling to Solving: The New Strategy in Action</h3>
+    
+    <p>Armed with this new perspective, Sarah shifted her focus from "closing a deal" to genuinely solving her clients' problems. Her new methods included:</p>
+    
+    <ul style="padding-left: 20px;">
+        <li style="margin-bottom: 15px;">
+            <strong>Digging Deeper than Price:</strong>
+            <p style="margin-top: 5px; margin-bottom: 0;">Instead of ending the conversation on price, she asked probing questions to understand the client's value perception. This often revealed the core issue wasn't the price, but that the product's Return on Investment (ROI) hadn't been clearly communicated.</p>
+        </li>
+        <li style="margin-bottom: 15px;">
+            <strong>Selling Value, Not Features:</strong>
+            <p style="margin-top: 5px; margin-bottom: 0;">Rather than defending missing features, she focused on the client's underlying needs. By asking <i>"What problem are you trying to solve with that feature?"</i>, she could demonstrate how her product offered a better solution to the core problem.</p>
+        </li>
+        <li style="margin-bottom: 15px;">
+            <strong>Continuous Learning and Iteration:</strong>
+            <p style="margin-top: 5px; margin-bottom: 0;">Every interaction became a lesson. She actively A/B tested emails, refined presentations based on client reactions, and sought feedback. She now saw her abilities as a constantly evolving skillset.</p>
+        </li>
+    </ul>
+
+    <h3 style="font-size: 1.8em; color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px; margin-top: 40px;">The Payoff: Success Beyond the Sales Numbers</h3>
+    
+    <p>By shifting her mindset, Sarah began to not only meet but exceed her sales targets. More importantly, she built stronger, trust-based relationships, becoming a valued consultant to her clients. Her newfound belief in her ability to grow reignited her passion for her career and unlocked potential she never knew she had.</p>
+
+</div>
     `
             }
         ],
@@ -1430,11 +1462,9 @@ function renderLessonNotes(moduleId, lessonIndex) {
         notesListContainer.innerHTML = '';
     }
 
-    // PENTING: Tambahkan ini agar ikon baru (file-text) bisa dirender
     feather.replace();
 }
 
-// TAMBAHKAN FUNGSI KECIL INI JUGA
     function seekVideoTo(time) {
     const videoElement = document.getElementById('current-video-player');
     if (videoElement) {
@@ -1444,7 +1474,7 @@ function renderLessonNotes(moduleId, lessonIndex) {
 }
         
 
-        // GANTI FUNGSI renderEmployeeView LAMA ANDA DENGAN VERSI INI
+        
 function renderEmployeeView() {
     // 1. Render sidebar khusus untuk employee
     const sidebarNav = document.querySelector('#main-sidebar nav');
