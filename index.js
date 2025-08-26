@@ -1087,32 +1087,85 @@ const completedCount = progress ? progress.length : 0;
         //     renderRolePlayGate();
         // }
 
-            // GANTI FUNGSI LAMA DENGAN VERSI BARU INI
-        // GANTI FUNGSI LAMA DENGAN VERSI BARU INI
-        function startRpgSession() {
+         // GANTI FUNGSI LAMA DENGAN VERSI BARU INI
+    function startRpgSession() {
     const progress = state.currentUser.rolePlayProgress[currentGateId];
     if (progress.length >= 3) return;
 
-    // 1. Ambil data kasus berdasarkan ID gerbang (gate)
+    // Tutup modal gerbang sesi saat ini...
+    closeModal(ui.rolePlayGateModal);
+    
+    // ...lalu mulai animasi pairing setelah jeda singkat
+    setTimeout(startPairingAnimation, 300); 
+}
+
+// TAMBAHKAN DUA FUNGSI BARU INI DI MANA SAJA DI index.js
+
+/**
+ * Menjalankan urutan animasi pairing selama ~7.5 detik.
+ */
+    function startPairingAnimation() {
+    const pairingModal = ui.rolePlayPairingModal;
+    const statusText = pairingModal.querySelector('#pairing-status-text');
+    const caseCard = pairingModal.querySelector('#case-card-reveal');
+    const peerPlaceholder = pairingModal.querySelector('#peer-avatar-placeholder');
+    const peerResult = pairingModal.querySelector('#peer-avatar-result');
+
+    // 1. Reset tampilan modal ke kondisi awal
+    statusText.innerHTML = '';
+    caseCard.classList.add('opacity-0', 'scale-95');
+    peerPlaceholder.classList.remove('hidden');
+    peerResult.classList.add('hidden');
+    
+    // 2. Buka modal pairing
+    openModal(pairingModal);
+
+    // 3. Rangkaian animasi menggunakan setTimeout
+    setTimeout(() => {
+        statusText.innerHTML = `<span class="fade-in-out">Finding a peer for your session...</span>`;
+    }, 500);
+
+    setTimeout(() => {
+        peerPlaceholder.classList.add('hidden');
+        // Untuk demo, kita gunakan avatar statis
+        peerResult.src = `https://placehold.co/100x100/c4b5fd/4338ca?text=SJ`; 
+        peerResult.classList.remove('hidden');
+        statusText.innerHTML = `<span class="fade-in-out">Peer Found! Preparing scenario...</span>`;
+    }, 3000);
+
+    setTimeout(() => {
+        statusText.innerHTML = `<span class="text-green-400 font-bold">Match Ready!</span>`;
+        const caseData = state.rolePlayCases[currentGateId];
+        const userRole = 'Sales'; // Masih hardcoded untuk demo
+
+        caseCard.querySelector('#case-title-reveal').textContent = caseData.title;
+        caseCard.querySelector('#case-role-reveal').textContent = userRole;
+        caseCard.classList.remove('opacity-0', 'scale-95');
+    }, 5500);
+
+    setTimeout(() => {
+        closeModal(pairingModal);
+        // Setelah animasi selesai dan modal tertutup, panggil modal briefing
+        setTimeout(showBriefing, 300);
+    }, 7500);
+}
+
+/**
+ * Menampilkan modal briefing peran.
+ */
+function showBriefing() {
     const caseData = state.rolePlayCases[currentGateId];
     if (!caseData) {
         alert('Case data for this challenge is not found!');
         return;
     }
-
-    // 2. Untuk mockup, kita tetapkan pengguna selalu menjadi 'Sales'
-    const userRole = 'Sales';
+    const userRole = 'Sales'; // Masih hardcoded untuk demo
     const briefing = caseData.salesBriefing;
 
-    // 3. Isi konten modal briefing dengan data yang sesuai
     document.getElementById('briefing-role').textContent = userRole;
     document.getElementById('briefing-objective').textContent = briefing.objective;
     document.getElementById('briefing-problem').textContent = briefing.problem;
-
-    // 4. Buka modal briefing
     openModal(ui.rolePlayBriefingModal);
-
-    // (Logika untuk tombol "Begin Session" akan kita tambahkan nanti)
 }
 
 // TAMBAHKAN FUNGSI BARU INI
