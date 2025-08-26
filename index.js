@@ -307,8 +307,26 @@ moduleContent: {
     }
 },
             caseLibrary: [
-                { id: 'case001', title: 'Startup SaaS Subscription', description: 'A tech startup is hesitant about your monthly subscription cost, preferring a competitor\'s one-time fee model.', tags: ['Tech', '$10k - $25k', 'Price Objection'], aiScript: { start: "Thanks for the demo, but I'm not sure about the monthly fee. Your competitor offers a one-time purchase which seems safer for our budget.", responses: { "value": "A one-time fee is attractive, but our subscription ensures you always have the latest features and support. How much do you currently spend on software maintenance?", "roi": "That's a fair point. Let's break down the ROI. With our included support and updates, most clients save over 20% in the first year compared to one-time purchase models with paid upgrades." } }, feedback: [ { positive: true, text: "Good job trying to reframe the conversation around value instead of just price." }, { positive: false, text: "You could be more direct in asking about their current pain points to better tailor your value proposition." } ] },
-                { id: 'case002', title: 'Enterprise Software Deal', description: 'A large corporation is interested but requires significant custom features and a longer trial period than standard.', tags: ['Enterprise', '>$100k', 'Feature Request'], aiScript: { start: "Your platform looks promising, but we need integrations with our legacy systems, and a 30-day trial isn't enough for our team to validate it.", responses: {} }, feedback: [ { positive: true, text: "You correctly identified the need to involve a solutions architect for the custom features." }, { positive: false, text: "Try to quantify the value of a paid pilot program instead of immediately agreeing to a longer free trial." } ] }
+                { id: 'case001', title: 'Startup SaaS Subscription', description: 'A tech startup is hesitant about your monthly subscription cost, preferring a competitor\'s one-time fee model.', tags: ['Tech', '$10k - $25k', 'Price Objection'],fullCase: `
+        <h3 class="text-xl font-bold text-slate-800 mb-4">Client Background</h3>
+        <p class="mb-6 text-slate-700">The potential client is "InnovateForward", a fast-growing tech startup with 50 employees. They have just secured Series A funding and are looking to optimize their workflow with a new project management tool. Their CTO, Sarah, is the main decision-maker. She is technically proficient but also very budget-conscious after being instructed by her CEO to manage burn rate carefully.</p>
+        
+        <h3 class="text-xl font-bold text-slate-800 mb-4">The Challenge</h3>
+        <p class="mb-6 text-slate-700">You have completed an initial product demo. Sarah likes the features of your SaaS product, especially the collaboration and reporting tools. However, she has expressed strong reservations about your subscription model ($20/user/month). A key competitor offers a similar, albeit less powerful, tool for a one-time perpetual license fee of $15,000. Sarah mentioned, "A one-time fee feels safer and more predictable for our budget."</p>
+        
+        <h3 class="text-xl font-bold text-slate-800 mb-4">Your Task</h3>
+        <p class="text-slate-700">Your objective in this simulation is to persuade Sarah that the subscription model provides better long-term value and is a smarter financial decision for her growing company than the competitor's one-time fee. You need to address her budget concerns while highlighting the hidden costs and limitations of a perpetual license model (e.g., paid upgrades, support contracts, lack of innovation).</p>
+    `, aiScript: { start: "Thanks for the demo, but I'm not sure about the monthly fee. Your competitor offers a one-time purchase which seems safer for our budget.", responses: { "value": "A one-time fee is attractive, but our subscription ensures you always have the latest features and support. How much do you currently spend on software maintenance?", "roi": "That's a fair point. Let's break down the ROI. With our included support and updates, most clients save over 20% in the first year compared to one-time purchase models with paid upgrades." } }, feedback: [ { positive: true, text: "Good job trying to reframe the conversation around value instead of just price." }, { positive: false, text: "You could be more direct in asking about their current pain points to better tailor your value proposition." } ] },
+                { id: 'case002', title: 'Enterprise Software Deal', description: 'A large corporation is interested but requires significant custom features and a longer trial period than standard.', tags: ['Enterprise', '>$100k', 'Feature Request'],fullCase: `
+        <h3 class="text-xl font-bold text-slate-800 mb-4">Client Background</h3>
+        <p class="mb-6 text-slate-700">The client is "GlobalCorp Logistics", a Fortune 500 company specializing in international supply chain management. They currently operate using a decade-old, on-premise legacy system for their core logistics tracking. The system is stable but rigid, inefficient, and costly to maintain. Your main contact is David Chen, the Director of Operations. David is experienced and highly respected, but also very risk-averse. A major software migration failure happened under his predecessor, and he is determined not to repeat that mistake.</p>
+        
+        <h3 class="text-xl font-bold text-slate-800 mb-4">The Challenge</h3>
+        <p class="mb-6 text-slate-700">David is impressed with your platform's modern interface and analytics capabilities. However, he has two major roadblocks. First, for your platform to be viable, it needs a deep, two-way integration with their proprietary inventory management system, which their internal team built. This is a significant custom feature request. Second, due to their extensive internal security review and procurement process, their standard policy requires a 90-day trial period, far longer than your standard 30-day trial.</p>
+        
+        <h3 class="text-xl font-bold text-slate-800 mb-4">Your Task</h3>
+        <p class="text-slate-700">Your objective is not to close the entire deal in one call, but to secure commitment for the next logical step: a **paid Proof-of-Concept (PoC)**. You must address both of David's concerns. For the custom integration, you should avoid promising to build it for free and instead steer the conversation towards scoping it as part of the PoC. For the 90-day trial, you need to reframe the request from a simple 'free trial extension' into a structured, paid pilot program with defined success criteria and dedicated support, justifying why this is better for a company of their scale.</p>
+    `, aiScript: { start: "Your platform looks promising, but we need integrations with our legacy systems, and a 30-day trial isn't enough for our team to validate it.", responses: {} }, feedback: [ { positive: true, text: "You correctly identified the need to involve a solutions architect for the custom features." }, { positive: false, text: "Try to quantify the value of a paid pilot program instead of immediately agreeing to a longer free trial." } ] }
             ],
             peerSessions: [ 
                 { id: 'ps001', topic: "Role-playing difficult client objections", description: "Let's practice handling tough questions about pricing and features. I can be the client first.", link: "https://meet.google.com/xyz-abc-def", author: "Sarah J.", participant: "Mike L." },
@@ -1415,22 +1433,58 @@ function showBriefing() {
             document.getElementById('start-simulation-btn').disabled = false;
         }
 
-        function startSimulation() {
-            if (!selectedCaseId) return;
-            const selectedCase = state.caseLibrary.find(c => c.id === selectedCaseId);
-            const modal = document.getElementById('ai-simulator-modal');
-            modal.querySelector('#ai-case-title').textContent = `Simulating: ${selectedCase.title}`;
-            modal.querySelector('#chat-window').innerHTML = '';
-            modal.querySelector('#feedback-window').classList.add('hidden');
-            modal.querySelector('#chat-input').classList.remove('hidden');
-            modal.querySelector('#send-btn').classList.remove('hidden');
-            modal.querySelector('#end-session-btn').classList.remove('hidden');
-            modal.querySelector('#close-feedback-btn').classList.add('hidden');
-            modal.querySelector('#chat-input').value = '';
-            addChatMessage(selectedCase.aiScript.start, false);
-            closeModal(ui.caseLibraryModal);
-            openModal(modal);
-        }
+        // REPLACE your old startSimulation function with this one.
+    function startSimulation() {
+    if (!selectedCaseId) return;
+    const selectedCase = state.caseLibrary.find(c => c.id === selectedCaseId);
+    if (!selectedCase) return;
+
+    // 1. Populate the new briefing modal with the detailed case data
+    ui.briefingModalTitle.textContent = selectedCase.title;
+    ui.briefingModalContent.innerHTML = selectedCase.fullCase;
+
+    // 2. Close the library modal
+    closeModal(ui.caseLibraryModal);
+    
+    // 3. Open the new case briefing modal
+    // We use a small delay to make the transition feel smoother
+    setTimeout(() => {
+        openModal(ui.caseBriefingModal);
+    }, 300); // 300ms delay
+}
+// ADD THIS NEW FUNCTION anywhere in index.js
+    function launchPlaceholderChat() {
+    const modal = ui.aiSimulatorModal;
+    
+    // 1. Get the chat window and clear it
+    const chatWindow = modal.querySelector('#chat-window');
+    chatWindow.innerHTML = '';
+    
+    // 2. Create the placeholder message
+    const placeholder = document.createElement('div');
+    placeholder.className = 'text-center text-slate-500 p-8 bg-slate-100 rounded-lg';
+    placeholder.innerHTML = `
+        <i data-feather="message-circle" class="w-12 h-12 mx-auto mb-4 text-slate-400"></i>
+        <h4 class="font-bold text-lg text-slate-700">AI Chat Simulation</h4>
+        <p class="mt-2">The interactive chat is not enabled for this demo.</p>
+        <p>In the final version, this is where you will practice the case scenario with our AI.</p>
+    `;
+    chatWindow.appendChild(placeholder);
+    feather.replace();
+
+    // 3. Hide the input field and send buttons
+    modal.querySelector('#chat-input').classList.add('hidden');
+    modal.querySelector('#send-btn').classList.add('hidden');
+    modal.querySelector('#end-session-btn').classList.add('hidden');
+    
+    // 4. Show the "Back to Library" button instead
+    const closeBtn = modal.querySelector('#close-feedback-btn');
+    closeBtn.classList.remove('hidden');
+    closeBtn.textContent = 'Close Simulation'; // Change button text
+
+    // 5. Open the chat modal
+    openModal(modal);
+}
 
         function addChatMessage(message, isUser) {
             const bubble = document.createElement('div');
@@ -1903,6 +1957,11 @@ addNoteModal: document.getElementById('add-note-modal'),
                 videoModalTitle: document.getElementById('video-modal-title'),
                 startLessonBtn: document.getElementById('start-lesson-btn'),
                 rolePlayGateModal: document.getElementById('role-play-gate-modal'),
+                // Add these inside the Object.assign(ui, { ... }) block
+                caseBriefingModal: document.getElementById('case-briefing-modal'),
+                briefingModalTitle: document.getElementById('briefing-modal-title'),
+                briefingModalContent: document.getElementById('briefing-modal-content'),
+                startSimulationFromBriefingBtn: document.getElementById('start-simulation-from-briefing-btn'),
                 caseLibraryModal: document.getElementById('case-library-modal'),
                 aiSimulatorModal: document.getElementById('ai-simulator-modal'),
                 aiPracticeBtn: document.getElementById('ai-practice-btn'),
@@ -1964,6 +2023,8 @@ addNoteModal: document.getElementById('add-note-modal'),
     contentArea: document.getElementById('content-area'),
     nextContentBtn: document.getElementById('next-content-btn'),
             });
+
+            console.log("Mencari tombol:", ui.startSimulationFromBriefingBtn);
 
             ui.goToLoginBtn.addEventListener('click', () => showPage(ui.loginPage));
             // Di dalam document.addEventListener('DOMContentLoaded', ...)
@@ -2043,6 +2104,42 @@ ui.viewBriefingBtn.addEventListener('click', () => {
     // Tampilkan modal
     openModal(ui.viewBriefingModal);
 });
+
+// Add these inside the document.addEventListener('DOMContentLoaded', ...)
+// 1. For the "Start Simulation" button inside the new briefing modal
+// Di dalam document.addEventListener('DOMContentLoaded', ...) SETELAH Object.assign
+
+    if (ui.startSimulationFromBriefingBtn) {
+    ui.startSimulationFromBriefingBtn.addEventListener('click', () => {
+        closeModal(ui.caseBriefingModal);
+        setTimeout(() => {
+            launchPlaceholderChat();
+        }, 300);
+    });
+}
+
+// 2. For the new "View Case Briefing" button inside the chat modal
+    // Di dalam document.addEventListener('DOMContentLoaded', ...)
+
+const viewBriefingInChatBtn = document.getElementById('view-briefing-in-chat-btn');
+if (viewBriefingInChatBtn) {
+    viewBriefingInChatBtn.addEventListener('click', () => {
+        // --- PERUBAHAN DI SINI ---
+        // 1. Naikkan lapisan z-index modal briefing secara paksa
+        ui.caseBriefingModal.style.zIndex = '60'; 
+
+        // 2. Baru buka modalnya
+        openModal(ui.caseBriefingModal);
+    });
+}
+
+// Opsional tapi direkomendasikan: Reset z-index saat ditutup
+const briefingCloseBtn = ui.caseBriefingModal.querySelector('.close-modal-btn');
+if (briefingCloseBtn) {
+    briefingCloseBtn.addEventListener('click', () => {
+        ui.caseBriefingModal.style.zIndex = ''; // Reset ke nilai default dari class CSS
+    });
+}
 
             ui.continueLearningBtn.addEventListener('click', () => showLmsView(ui.learningPathView));
             document.querySelectorAll('.close-modal-btn').forEach(btn => btn.addEventListener('click', (e) => { const modal = e.target.closest('.modal-backdrop'); if(modal) closeModal(modal); }));
