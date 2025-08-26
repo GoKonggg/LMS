@@ -288,6 +288,9 @@ moduleContent: {
     "c1": { // ID dari module challenge
         title: "Handling a Price-Conscious Client",
         // Briefing untuk peran Sales
+
+        starterPrompt: "Thanks for the presentation, it looks good. But to be frank, our main concern right now is the price. How flexible can you be on that?",
+    // -----------------------------------------
         salesBriefing: {
             objective: "Your goal is to convince the client to schedule a full product demo next week.",
             problem: "The client is very interested in the product but has repeatedly mentioned their limited budget. You must demonstrate value that outweighs the cost."
@@ -1900,16 +1903,31 @@ addNoteModal: document.getElementById('add-note-modal'),
 
             ui.goToLoginBtn.addEventListener('click', () => showPage(ui.loginPage));
             // Di dalam document.addEventListener('DOMContentLoaded', ...)
-            ui.beginRolePlayBtn.addEventListener('click', () => {
-    // Tutup modal briefing
+            // GANTI event listener LAMA DENGAN VERSI BARU INI
+ui.beginRolePlayBtn.addEventListener('click', () => {
     closeModal(ui.rolePlayBriefingModal);
 
-    // Buka modal chat setelah jeda singkat
     setTimeout(() => {
-        // Di sini kita akan panggil fungsi untuk memulai chat
-        // Untuk sekarang, kita hanya akan membukanya
+        // 1. Ambil data kasus yang aktif
+        const caseData = state.rolePlayCases[currentGateId];
+        if (!caseData || !caseData.starterPrompt) {
+            console.error("Starter prompt not found for this case.");
+            return;
+        }
+
+        // 2. Bersihkan jendela chat dari sesi sebelumnya
+        ui.chatWindow.innerHTML = '';
+        
+        // 3. Buka modal chat
         openModal(ui.rolePlayChatModal);
-        document.getElementById('chat-input').focus(); // Langsung fokus ke input
+        
+        // 4. Tampilkan pesan pembuka dari "customer" setelah jeda singkat
+        setTimeout(() => {
+            addChatMessage(caseData.starterPrompt, 'peer'); // 'peer' adalah role untuk customer/AI
+        }, 500); // Jeda 0.5 detik agar terasa natural
+
+        // 5. Fokus ke input field agar pengguna bisa langsung mengetik
+        document.getElementById('chat-input').focus();
     }, 300);
 });
             ui.logoutBtn.addEventListener('click', handleLogout);
