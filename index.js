@@ -109,7 +109,7 @@ moduleContent: {
                     question: 'What is the core belief of a growth mindset?',
                     options: ['Talent is everything', 'Abilities can be developed', 'Avoid failure at all costs'],
                     correctAnswer: 1,
-                    triggerAt : 60
+                    triggerAt : 70
                 }
             },
             { 
@@ -568,39 +568,6 @@ peerRolePlaySessions: [],
         function closeModal(modal) { modal.classList.add('opacity-0'); (modal.querySelector('.modal-content') || modal).classList.add('scale-95'); setTimeout(() => { modal.classList.add('hidden'); }, 300); }
   
         
-// TAMBAHKAN FUNGSI-FUNGSI BARU INI
-function playVideo() {
-    document.getElementById('video-placeholder').classList.add('playing');
-    videoSimulator.interval = setInterval(updateVideoProgress, 1000);
-}
-
-function pauseVideo() {
-    videoSimulator.isPaused = true;
-    clearInterval(videoSimulator.interval);
-}
-
-function resumeVideo() {
-    videoSimulator.isPaused = false;
-    videoSimulator.interval = setInterval(updateVideoProgress, 1000);
-}
-
-function updateVideoProgress() {
-    if (videoSimulator.currentTime < videoSimulator.duration) {
-        videoSimulator.currentTime++;
-        const progressPercent = (videoSimulator.currentTime / videoSimulator.duration) * 100;
-        document.getElementById('video-progress-bar').style.width = `${progressPercent}%`;
-
-        // Cek apakah ada kuis yang harus dipicu
-        const lesson = state.moduleContent[videoSimulator.moduleId].lessons[videoSimulator.lessonIndex];
-        if (lesson.popupQuiz && lesson.popupQuiz.triggerAt === videoSimulator.currentTime) {
-            pauseVideo();
-            showPopupQuiz(videoSimulator.moduleId, videoSimulator.lessonIndex);
-        }
-    } else {
-        clearInterval(videoSimulator.interval);
-        console.log("Video finished");
-    }
-}
 
 function renderNoteMarkers(moduleId, lessonIndex) {
     const container = document.getElementById('note-markers-container');
@@ -625,45 +592,59 @@ function formatTime(seconds) {
     return `${min}:${sec}`;
 }
 
-// GANTI TOTAL FUNGSI displayModuleContent DENGAN INI
-function displayModuleContent(moduleId, itemIndex) {
-    // Hentikan simulator video sebelumnya jika ada
+// GANTI TOTAL FUNGSI displayModuleContent DENGAN VERSI FINAL INI
+    function displayModuleContent(moduleId, itemIndex) {
+    // Hentikan interval lama jika masih ada (sebagai pengaman)
     clearInterval(videoSimulator.interval);
 
     const content = state.moduleContent[moduleId];
     const item = content.lessons[itemIndex];
     if (!item) return;
 
-    // Reset dan inisialisasi simulator untuk video ini
-    videoSimulator.currentTime = 0;
-    videoSimulator.duration = item.duration || 60;
-    videoSimulator.isPaused = false;
+    // Simpan info modul & lesson yang sedang aktif
     videoSimulator.moduleId = moduleId;
     videoSimulator.lessonIndex = itemIndex;
 
-    // Update UI (sidebar aktif, judul, deskripsi)
+    // Update UI (judul, deskripsi, sidebar)
     document.querySelectorAll('.toc-item').forEach(el => el.classList.toggle('active', parseInt(el.dataset.index) === itemIndex));
     ui.contentTitle.textContent = item.title;
     ui.contentDescription.textContent = `In this ${item.type}, you'll learn about the key concepts of ${item.title}.`;
 
-    // Render konten (video interaktif atau artikel)
+    // Render konten (video atau artikel)
     if (item.type === 'video') {
-    // Gunakan tag <video> HTML5 dan ambil src dari data item
-    ui.contentArea.innerHTML = `
-        <video controls class="w-full aspect-video bg-slate-800 rounded-lg" src="${item.videoSrc}">
-            Browser Anda tidak mendukung tag video.
-        </video>
-    `;
-    // renderNoteMarkers(moduleId, itemIndex); // Anda bisa non-aktifkan ini dulu jika belum perlu
-} else {
+        // Buat elemen video dengan ID agar mudah diakses
+        ui.contentArea.innerHTML = `
+            <video controls class="w-full aspect-video bg-slate-800 rounded-lg" id="current-video-player" src="${item.videoSrc}">
+                Browser Anda tidak mendukung tag video.
+            </video>
+        `;
+        
+        // --- INILAH PENGGANTI SEMUA LOGIKA LAMA ---
+        const videoElement = document.getElementById('current-video-player');
+        let quizHasBeenTriggered = false; // Flag agar kuis hanya muncul sekali per pemutaran
+
+        // Tambahkan event listener yang akan berjalan setiap kali waktu video berubah
+        videoElement.addEventListener('timeupdate', () => {
+            const currentTime = Math.floor(videoElement.currentTime);
+            const lesson = state.moduleContent[videoSimulator.moduleId].lessons[videoSimulator.lessonIndex];
+            
+            // Cek jika video ini punya kuis, waktunya pas, dan kuis belum pernah muncul
+            if (lesson.popupQuiz && currentTime === lesson.popupQuiz.triggerAt && !quizHasBeenTriggered) {
+                quizHasBeenTriggered = true; // Tandai kuis sudah muncul
+                videoElement.pause(); // Jeda video yang sesungguhnya
+                showPopupQuiz(videoSimulator.moduleId, videoSimulator.lessonIndex); // Tampilkan modal kuis
+            }
+        });
+        // --- AKHIR DARI LOGIKA PENGGANTI ---
+
+    } else {
+        // Jika bukan video, tampilkan sebagai artikel
         ui.contentArea.innerHTML = item.content || '<p>Artikel belum tersedia.</p>';
     }
     feather.replace();
     
-    // Setup note section di bawahnya
+    // Setup bagian untuk mencatat (tidak berubah)
     setupNoteTakingSection(item);
-    
-    
 }
 
 function setupNoteTakingSection(item) {
@@ -827,6 +808,7 @@ function openModule(moduleId) {
         }
 
         function checkAnswer() {
+            console.log('checkAnswer dipanggil');
             if (lessonState.selectedOptionIndex === null || lessonState.isAnswerChecked) return;
             lessonState.isAnswerChecked = true;
             const step = lessonState.steps[lessonState.currentStepIndex];
@@ -1873,30 +1855,39 @@ function showPopupQuiz(moduleId, lessonIndex, nextIndex) {
     openModal(ui.popupQuizModal);
 }
 
-function handlePopupQuizSubmit(moduleId, quiz, nextIndex) {
+// GANTI KESELURUHAN FUNGSI LAMA ANDA DENGAN INI
+    function handlePopupQuizSubmit(moduleId, quiz, nextIndex) {
     if (selectedQuizOption === null) return;
 
     const isCorrect = selectedQuizOption === quiz.correctAnswer;
     const feedback = ui.popupQuizFeedback;
     
     feedback.classList.remove('hidden', 'bg-green-100', 'text-green-700', 'bg-red-100', 'text-red-700');
+    
     if (isCorrect) {
-        // ...
-        ui.popupQuizNextBtn.onclick = () => {
-            closeModal(ui.popupQuizModal);
-            resumeVideo(); // <-- RESUME VIDEO DI SINI
-            // ... (logika lanjut ke lesson berikutnya bisa dihapus dari sini agar user menekan tombol 'Next' secara manual)
-        };
+        feedback.classList.add('bg-green-100', 'text-green-700');
+        feedback.textContent = "Correct! Well done.";
     } else {
-        // ...
-        ui.popupQuizNextBtn.onclick = () => {
-             closeModal(ui.popupQuizModal);
-             resumeVideo(); // Tetap resume video meskipun jawaban salah
-        }
+        feedback.classList.add('bg-red-100', 'text-red-700');
+        feedback.textContent = `Not quite. The correct answer was: "${quiz.options[quiz.correctAnswer]}"`;
     }
 
     ui.popupQuizSubmitBtn.classList.add('hidden');
     ui.popupQuizNextBtn.classList.remove('hidden');
+
+    // --- PERBAIKAN UTAMA ADA DI SINI ---
+    // Event listener untuk tombol "Continue" setelah menjawab kuis
+    ui.popupQuizNextBtn.onclick = () => {
+        closeModal(ui.popupQuizModal);
+
+        // Ambil elemen video yang sedang aktif
+        const videoElement = document.getElementById('current-video-player');
+        
+        // Jika elemen video ditemukan, panggil method .play() untuk melanjutkannya
+        if (videoElement) {
+            videoElement.play(); // <-- MENGGANTIKAN PANGGILAN resumeVideo()
+        }
+    };
 }
 
 // Fungsi utama untuk membangun HTML halaman detail
