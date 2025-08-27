@@ -1780,47 +1780,81 @@ function calculateTimeSpentToday(employee) {
         }
         
         
-        function renderNotes() {
+        // GANTI TOTAL FUNGSI LAMA DENGAN VERSI BARU INI
+function renderNotes() {
     if (!state.currentUser || !ui.notesContainer) return;
 
-    ui.notesContainer.innerHTML = state.currentUser.notes.map(note => {
-        let timestampHTML = ''; // Siapkan variabel kosong untuk HTML timestamp
+    const notes = state.currentUser.notes;
+    const notesContainer = ui.notesContainer;
+    const filterDropdown = document.getElementById('note-filter-dropdown');
 
-        // 1. Cek apakah catatan ini punya timestamp yang valid
-        if (note.timestamp !== undefined && typeof note.timestamp === 'number') {
-    
-    // 2. [LOGIC BARU] Ambil judul video spesifik dari state
-    let lessonTitle = "Video"; // Siapkan judul default jika tidak ditemukan
-    
-    // Cek apakah data modul dan pelajaran ada untuk catatan ini
-    if (state.moduleContent[note.moduleId] && state.moduleContent[note.moduleId].lessons[note.lessonIndex]) {
-        // Jika ada, ambil judulnya
-        lessonTitle = `"${state.moduleContent[note.moduleId].lessons[note.lessonIndex].title}"`;
+    if (notes.length === 0) {
+        notesContainer.innerHTML = `<div class="text-center text-slate-500 p-8 bg-white rounded-lg">You haven't saved any notes yet.</div>`;
+        filterDropdown.innerHTML = '<option value="all">All Modules</option>';
+        return;
     }
 
-    // 3. Buat HTML badge dengan judul dinamis
-    timestampHTML = `
-        <div class="mt-3 pt-3 border-t border-slate-100">
-            <span class="inline-flex items-center gap-1.5 text-xs font-semibold bg-sky-100 text-sky-800 px-2.5 py-1 rounded-full">
-                <i data-feather="clock" class="w-3.5 h-3.5"></i>
-                Noted at ${formatTime(note.timestamp)} in ${lessonTitle} Video
-            </span>
-        </div>
-    `;
-}
+    // 1. Kelompokkan catatan berdasarkan sumbernya (judul modul)
+    const groupedNotes = notes.reduce((acc, note) => {
+        const source = note.source || "General Notes";
+        if (!acc[source]) {
+            acc[source] = [];
+        }
+        acc[source].push(note);
+        return acc;
+    }, {});
 
-        // 3. Gabungkan semuanya ke dalam HTML kartu catatan
+    // 2. Isi dropdown filter dengan nama-nama modul yang punya catatan
+    filterDropdown.innerHTML = '<option value="all">All Modules</option>';
+    Object.keys(groupedNotes).forEach(source => {
+        const option = document.createElement('option');
+        option.value = source;
+        option.textContent = source;
+        filterDropdown.appendChild(option);
+    });
+
+    // 3. Render catatan yang sudah dikelompokkan ke dalam HTML
+    notesContainer.innerHTML = Object.entries(groupedNotes).map(([source, notesInGroup]) => {
         return `
-            <div class="bg-white p-4 rounded-lg shadow-sm">
-                <p class="text-xs text-slate-500 font-semibold mb-1">From: ${note.source}</p>
-                <p class="text-slate-700">${note.text}</p>
-                ${timestampHTML} 
+            <div class="note-group" data-source="${source}">
+                <h3 class="text-lg font-bold text-slate-700 mb-3 pb-2 border-b">${source}</h3>
+                <div class="space-y-4">
+                    ${notesInGroup.map(note => {
+                        let timestampHTML = '';
+                        if (note.timestamp !== undefined) {
+                            const lessonTitle = state.moduleContent[note.moduleId]?.lessons[note.lessonIndex]?.title || "Video";
+                            timestampHTML = `
+                                <div class="mt-3 pt-3 border-t border-slate-100">
+                                    <span class="inline-flex items-center gap-1.5 text-xs font-semibold bg-sky-100 text-sky-800 px-2.5 py-1 rounded-full">
+                                        <i data-feather="clock" class="w-3.5 h-3.5"></i>
+                                        Noted at ${formatTime(note.timestamp)} in "${lessonTitle}"
+                                    </span>
+                                </div>`;
+                        }
+                        return `
+                            <div class="bg-white p-4 rounded-lg shadow-sm">
+                                <p class="text-slate-700">${note.text}</p>
+                                ${timestampHTML}
+                            </div>`;
+                    }).join('')}
+                </div>
             </div>
         `;
-    }).join('') || `<div class="text-center text-slate-500 p-8 bg-white rounded-lg">You haven't saved any notes yet.</div>`;
-    
-    // 4. Penting! Panggil feather.replace() agar ikon jam yang baru kita tambahkan bisa muncul
-    feather.replace(); 
+    }).join('');
+
+    feather.replace();
+}
+
+// TAMBAHKAN FUNGSI BARU INI untuk menghandle filter
+function filterNotes() {
+    const filterValue = document.getElementById('note-filter-dropdown').value;
+    document.querySelectorAll('.note-group').forEach(group => {
+        if (filterValue === 'all' || group.dataset.source === filterValue) {
+            group.style.display = 'block';
+        } else {
+            group.style.display = 'none';
+        }
+    });
 }
 
 // GANTI JUGA FUNGSI handleSaveNote LAMA ANDA DENGAN INI
@@ -2193,6 +2227,11 @@ if (briefingCloseBtn) {
             if(ui.retryLessonBtn) ui.retryLessonBtn.addEventListener('click', closeLesson);
             // BUG FIX: Removed redundant event listener. The .onclick is set in resetButtons()
             // if(ui.lessonCheckBtn) ui.lessonCheckBtn.addEventListener('click', checkAnswer);
+            // Di dalam document.addEventListener('DOMContentLoaded', ...)
+            const noteFilterDropdown = document.getElementById('note-filter-dropdown');
+            if (noteFilterDropdown) {
+    noteFilterDropdown.addEventListener('change', filterNotes);
+}
             if(ui.backToPathBtnDetail) ui.backToPathBtnDetail.addEventListener('click', () => showLmsView(ui.learningPathView));
             if(ui.notificationOkBtn) {
     ui.notificationOkBtn.addEventListener('click', () => closeModal(ui.notificationModal));
