@@ -1779,15 +1779,48 @@ function calculateTimeSpentToday(employee) {
             openCaseLibrary();
         }
         
-        // GANTI FUNGSI renderNotes LAMA ANDA DENGAN INI
+        
         function renderNotes() {
-    // Menggunakan state.currentUser yang benar
-    ui.notesContainer.innerHTML = state.currentUser.notes.map(note =>
-        `<div class="bg-white p-4 rounded-lg shadow-sm border-l-4" style="border-color: var(--brand-blue);">
-            <p class="text-xs text-slate-500 font-semibold mb-1">From: ${note.source}</p>
-            <p class="text-slate-700">${note.text}</p>
-        </div>`
-    ).join('') || `<div class="text-center text-slate-500 p-8 bg-white rounded-lg">You haven't saved any notes yet.</div>`;
+    if (!state.currentUser || !ui.notesContainer) return;
+
+    ui.notesContainer.innerHTML = state.currentUser.notes.map(note => {
+        let timestampHTML = ''; // Siapkan variabel kosong untuk HTML timestamp
+
+        // 1. Cek apakah catatan ini punya timestamp yang valid
+        if (note.timestamp !== undefined && typeof note.timestamp === 'number') {
+    
+    // 2. [LOGIC BARU] Ambil judul video spesifik dari state
+    let lessonTitle = "Video"; // Siapkan judul default jika tidak ditemukan
+    
+    // Cek apakah data modul dan pelajaran ada untuk catatan ini
+    if (state.moduleContent[note.moduleId] && state.moduleContent[note.moduleId].lessons[note.lessonIndex]) {
+        // Jika ada, ambil judulnya
+        lessonTitle = `"${state.moduleContent[note.moduleId].lessons[note.lessonIndex].title}"`;
+    }
+
+    // 3. Buat HTML badge dengan judul dinamis
+    timestampHTML = `
+        <div class="mt-3 pt-3 border-t border-slate-100">
+            <span class="inline-flex items-center gap-1.5 text-xs font-semibold bg-sky-100 text-sky-800 px-2.5 py-1 rounded-full">
+                <i data-feather="clock" class="w-3.5 h-3.5"></i>
+                Noted at ${formatTime(note.timestamp)} in ${lessonTitle} Video
+            </span>
+        </div>
+    `;
+}
+
+        // 3. Gabungkan semuanya ke dalam HTML kartu catatan
+        return `
+            <div class="bg-white p-4 rounded-lg shadow-sm">
+                <p class="text-xs text-slate-500 font-semibold mb-1">From: ${note.source}</p>
+                <p class="text-slate-700">${note.text}</p>
+                ${timestampHTML} 
+            </div>
+        `;
+    }).join('') || `<div class="text-center text-slate-500 p-8 bg-white rounded-lg">You haven't saved any notes yet.</div>`;
+    
+    // 4. Penting! Panggil feather.replace() agar ikon jam yang baru kita tambahkan bisa muncul
+    feather.replace(); 
 }
 
 // GANTI JUGA FUNGSI handleSaveNote LAMA ANDA DENGAN INI
