@@ -114,13 +114,14 @@ moduleContent: {
             },
             { 
                 type: 'video', 
-                title: 'Effort vs. Talent', 
-                duration: 30,
+                title: 'Hardwork vs. Talent', 
+                duration: 600,
+                videoSrc: 'ASSET/talent_hardwork.mp4',
                 popupQuiz: {
                     question: 'How is "effort" viewed in a growth mindset?',
                     options: ['A sign of low talent', 'A necessary path to mastery', 'Something to hide'],
                     correctAnswer: 1,
-                    triggerAt: 20
+                    triggerAt: 300
                 }
             },
             { 
@@ -1481,6 +1482,7 @@ function showBriefing() {
     const closeBtn = modal.querySelector('#close-feedback-btn');
     closeBtn.classList.remove('hidden');
     closeBtn.textContent = 'Close Simulation'; // Change button text
+    
 
     // 5. Open the chat modal
     openModal(modal);
